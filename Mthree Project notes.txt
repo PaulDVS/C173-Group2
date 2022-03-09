@@ -1,0 +1,85 @@
+Object:
+	ProductType
+		ProductType
+		ProductTax
+
+	Item
+		ItemId
+		ItemName
+		ProductType
+		Itemunitprice
+		ItemQuantity
+		
+
+	Basket
+		CustomerId
+		List<BasketItem>
+	
+	BasketItem
+		ItemId
+		quantity
+
+	Customer:
+		CustomerEmail
+		CustomerPhone
+		CustomerAddress
+		CustomerName
+		CustomerPassword
+
+Services:
+	Stock:
+		Get all stockType
+		Get all item by Type
+		Get item by id
+		Get StockQuantity by itemId
+		Change StockQuantity by itemId
+		get itemPrice by id
+		get stockTax by Type
+
+	Orders:
+		Store Basket
+		Load Basket
+
+	Account:
+		Create account
+		Login		
+
+Website:
+	Login:
+		Username password check
+		Go to StoreSection
+
+	StoreSection:
+		Shows list of stock type
+		Select stock (Search by Stocktype or list of anchors?): Go to shopPage
+		Cart: Go to Cart
+		Logout: Go to login page
+
+
+	ShopPage:
+		Show list of items of specific type
+		Select item(Search by Stocktype or list of anchors?): Go to ItemPage
+		Go Back: Go to StoreSelection
+
+	ItemPage:
+		Showcase Stocktypes, prices, tax and initial quantity
+		Allow user to input how many they want.
+			Throw error if negative or more than quantity
+
+		Buy: Go back to storePage
+		Back: Go to ShopPage
+
+	Cart:
+		Remove items
+		Back: Go to storeselection
+		Checkout: Go to Checkout
+
+	Checkout:
+		Show: Basket content and grand total.
+		Go to shopPage
+
+
+
+Package format:
+com.xyz.
+
