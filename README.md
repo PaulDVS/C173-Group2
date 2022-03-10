@@ -7,3 +7,13 @@ Port: 8082: OrderService
 Port: 8083: AccountService
 
 Port: 8085: ShoppingPortal
+
+
+Packages: com.xyz
+
+
+Database: wileyc173group2
+
+username: root
+
+password: password
