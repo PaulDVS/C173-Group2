@@ -1,6 +1,6 @@
 package com.xyz.resource;
 
-import com.xyz.entity.Basket;
+import com.xyz.entity.Order;
 import com.xyz.entity.BasketItem;
 import com.xyz.service.BasketService;
 
@@ -17,12 +17,12 @@ public class BasketApi {
 	private BasketService basketService;
 
     @PostMapping(value="Basket/Add",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public BasketItem addItem(@RequestBody int itemID, @RequestBody int quantity) {
-		return basketService.addToBasket(itemID, quantity);
+	public BasketItem addItem(@RequestBody BasketItem basketItem) {
+		return basketService.addToBasket(basketItem);
 	}
 
     @PostMapping(value="Basket/Remove",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public BasketItem removeItem(@RequestBody int itemID, @RequestBody int quantity) {
-		return basketService.removeFromBasket(itemID, quantity);
+	public BasketItem removeItem(@RequestBody BasketItem basketItem) {
+		return basketService.removeFromBasket(basketItem);
 	}
 }
