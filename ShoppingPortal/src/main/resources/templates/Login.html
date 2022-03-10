@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlsns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>XYZ Retail</title>
+</head>
+<body>
+
+<h1>XYZ Retail Shopping Website</h1>
+<h2>Login Page</h2>
+<br>
+
+<h3 th:text="${message}"></h3>
+<br>
+<h3>Login Form:</h3>
+<form action="./Login" method="post">
+	Enter Username : <input type="text" name="userName"><br><br>
+	Enter Password : <input type="password" name="password"><br><br>
+	<input type="submit" value="Login">
+</form>
+<br><br>
+
+
+</body>
+</html>
