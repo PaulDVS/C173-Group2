@@ -12,7 +12,7 @@ Port: 8085: ShoppingPortal
 Packages: com.xyz
 
 
-Database: wileyc173-group2
+Database: wileyc173group2
 
 username: root
 
