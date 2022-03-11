@@ -1,8 +1,8 @@
-package stock.service;
+package com.xyz.stock.service;
 
-import stock.entity.Item;
-import stock.entity.ItemType;
-import stock.entity.Items;
+import com.xyz.stock.entity.Item;
+import com.xyz.stock.entity.ItemType;
+import com.xyz.stock.entity.Items;
 
 public interface ItemService {
 	public Item addItem(Item item);

@@ -14,18 +14,18 @@ public class BasketServiceImpl implements BasketService{
 
     @Override
     public BasketItem addToBasket(BasketItem basketItem) {
-        BasketItem result = basketItemDao.findById(basketItem.getItemId()).get();
+        BasketItem result = basketItemDao.findBasketItemByOrderIdAndItemId(basketItem.getOrderId(), basketItem.getItemId());
         if(result != null){
-            basketItemDao.addQuantityById(basketItem.getItemId(), basketItem.getQuantity());
+            basketItemDao.addQuantityById(basketItem.getOrderId(), basketItem.getItemId(), basketItem.getQuantity());
         }
         return basketItemDao.save(basketItem);
     }
 
     @Override
     public BasketItem removeFromBasket(BasketItem basketItem) {
-        BasketItem result = basketItemDao.findById(basketItem.getItemId()).get();
+        BasketItem result = basketItemDao.findBasketItemByOrderIdAndItemId(basketItem.getOrderId(), basketItem.getItemId());
         if(result != null){
-            basketItemDao.subQuantityById(basketItem.getItemId(), basketItem.getQuantity());
+            basketItemDao.subQuantityById(basketItem.getOrderId(), basketItem.getItemId(), basketItem.getQuantity());
         }
         return basketItem;
     }

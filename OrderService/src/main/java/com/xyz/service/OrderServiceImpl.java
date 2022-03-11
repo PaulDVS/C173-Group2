@@ -13,8 +13,7 @@ public class OrderServiceImpl implements OrderService{
 	private OrderDao orderDao;
 
     @Override
-    public Order checkOut(Order order) {
-        order.setCheckedOut(true);
-        return order;
+    public Order checkOut(int orderId) {
+        return orderDao.checkOutOrderById(orderId);
     }
 }

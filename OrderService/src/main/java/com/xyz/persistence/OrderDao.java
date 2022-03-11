@@ -17,8 +17,8 @@ public interface OrderDao extends JpaRepository<Order, Integer>{
     @Query("SELECT * FROM Order WHERE customerEmail =: cEmail")
     public Order findOrderByCustomerEmail(@Param("cEmail") String cEmail);
 
-    // @Transactional
-	// @Modifying
-	// @Query("UPDATE FROM Product WHERE name=:productName")
-    // public Order findOrderByCustomerEmail(@Param("cEmail") String cEmail);
+    @Transactional
+	@Modifying
+	@Query("UPDATE FROM Order SET checkedOut = 1 WHERE OrderId =: oId")
+    public Order checkOutOrderById(@Param("oId") int OrderId);
 }
