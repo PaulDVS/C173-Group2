@@ -1,7 +1,7 @@
-package stock.service;
+package com.xyz.stock.service;
 
-import stock.entity.ItemType;
-import stock.entity.ItemTypes;
+import com.xyz.stock.entity.ItemType;
+import com.xyz.stock.entity.ItemTypes;
 
 public interface ItemTypeService {
 	public ItemTypes getAllTypes();

@@ -1,4 +1,4 @@
-package stock.entity;
+package com.xyz.stock.entity;
 
 import java.util.List;
 

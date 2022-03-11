@@ -1,14 +1,14 @@
-package stock.service;
+package com.xyz.stock.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import stock.entity.Item;
-import stock.entity.ItemType;
-import stock.entity.Items;
-import stock.persistence.ItemDao;
+import com.xyz.stock.entity.Item;
+import com.xyz.stock.entity.ItemType;
+import com.xyz.stock.entity.Items;
+import com.xyz.stock.persistence.ItemDao;
 
 @Service
 public class ItemServiceImp implements ItemService {

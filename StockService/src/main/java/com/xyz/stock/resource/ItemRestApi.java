@@ -1,4 +1,4 @@
-package stock.resource;
+package com.xyz.stock.resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import stock.entity.Item;
-import stock.entity.ItemType;
-import stock.entity.Items;
-import stock.service.ItemService;
+import com.xyz.stock.entity.Item;
+import com.xyz.stock.entity.ItemType;
+import com.xyz.stock.entity.Items;
+import com.xyz.stock.service.ItemService;
 
 @RestController
 public class ItemRestApi {
