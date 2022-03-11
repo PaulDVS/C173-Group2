@@ -15,8 +15,8 @@ import com.xyz.persistence.UserDao;
 @EnableJpaRepositories(basePackages = "com.xyz.persistence")
 public class AccountServiceApplication /*implements CommandLineRunner */ {
 
-	@Autowired
-	UserDao userDoa;
+//	@Autowired
+//	UserDao userDoa;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AccountServiceApplication.class, args);
