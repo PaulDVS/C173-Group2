@@ -13,23 +13,42 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface BasketItemDao extends JpaRepository<BasketItem, Integer>{
+
+    // get all items from OrderId
     @Query("SELECT * FROM BasketItem WHERE orderId =: orId")
-    public List<BasketItem> findBasketItemByOrderId(@Param("orId") int orderId);
+    public List<BasketItem> getAllBasketItemByOrderId(@Param("orId") int orderId);
 
+    // get all items by ItemId
     @Query("SELECT * FROM BasketItem WHERE itemId =: itId")
-    public List<BasketItem> findBasketItemByItemId(@Param("itId") int itemId);
+    public List<BasketItem> getAllBasketItemByItemId(@Param("itId") int itemId);
 
+    // get all items from current and past Orders by customerEmail
+    @Query("SELECT * FROM BasketItem INNER JOIN Order ON BasketItem.OrderId = Order.OrderId WHERE customerEmail =: cEmail")
+    public List<BasketItem> getAllBasketItemByCustomerId(@Param("cEmail") String customerEmail);
+
+    // get all items from past Order (checkOut) by customerEmail
+    @Query("SELECT * FROM BasketItem INNER JOIN Order ON BasketItem.OrderId = Order.OrderId WHERE Order.customerEmail =: cEmail AND Order.checkOut = 1")
+    public List<BasketItem> getCheckedOutBasketItemByCustomerId(@Param("cEmail") String customerEmail);
+
+    // get all items from current Order (uncheckOut) by customerEmail
+    @Query("SELECT * FROM BasketItem INNER JOIN Order ON BasketItem.OrderId = Order.OrderId WHERE Order.customerEmail =: cEmail AND Order.checkOut = 0")
+    public List<BasketItem> getUnCheckedOutBasketItemByCustomerId(@Param("cEmail") String customerEmail);
+
+    // update quantity by adding, looked up by orderId and itemId
     @Transactional
 	@Modifying
-	@Query("UPDATE BasketItem SET quantity=: quantity + ItQuantity WHERE itemId := itId")
-    public BasketItem addQuantityById(@Param("itId") int itemId, @Param("ItQuantity") int quantity);
+	@Query("UPDATE BasketItem SET quantity=: quantity + ItQuantity WHERE itemId =: itId AND OrderId =: oId")
+    public BasketItem addQuantityById(@Param("oId") int orderId, @Param("itId") int itemId, @Param("ItQuantity") int quantity);
 
+    // update quantity by subtracting, looked up by orderId and itemId
     @Transactional
 	@Modifying
-	@Query("UPDATE BasketItem SET quantity=: quantity - ItQuantity WHERE itemId := itId")
-    public BasketItem subQuantityById(@Param("itId") int itemId, @Param("ItQuantity") int quantity);
+	@Query("UPDATE BasketItem SET quantity=: quantity - ItQuantity WHERE itemId =: itId AND OrderId =: oId")
+    public BasketItem subQuantityById(@Param("oId") int orderId, @Param("itId") int itemId, @Param("ItQuantity") int quantity);
 
-    // @Query("SELECT * FROM BasketItem INNER JOIN Order ON BasketItem.CustomerID = Customers.CustomerID")
-    // public List<BasketItem> getCurrentBasket(@Param("orId") int orderId);
-
+    // discard basket, only discards unCheckOut items, delete all items by OrderId
+    @Transactional
+	@Modifying
+	@Query("DELETE FROM BasketItem INNER JOIN Order ON BasketItem.OrderId = Order.OrderId WHERE OrderId =: oId AND Order.checkOut = 0")
+    public BasketItem discardBasketItemByOrderId(@Param("oId") int orderId);
 }
