@@ -1,7 +1,7 @@
 package com.xyz.service;
 
-import com.xyz.entity.Order;
+import com.xyz.entity.OrderRecord;
 
 public interface OrderService {
-    public Order checkOut(int orderId);
+    public OrderRecord checkOut(int orderId);
 }
