@@ -1,7 +1,7 @@
 package com.xyz.service;
 
-import com.xyz.entity.Order;
-import com.xyz.persistence.OrderDao;
+import com.xyz.entity.OrderRecord;
+import com.xyz.persistence.OrderRecordDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 public class OrderServiceImpl implements OrderService{
 
     @Autowired
-	private OrderDao orderDao;
+	private OrderRecordDao orderRecordDao;
 
     @Override
-    public Order checkOut(int orderId) {
-        return orderDao.checkOutOrderById(orderId);
+    public OrderRecord checkOut(int orderId) {
+        return orderRecordDao.checkOutOrderById(orderId);
     }
 }
