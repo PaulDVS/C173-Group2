@@ -1,4 +1,4 @@
-package stock;
+package com.xyz.stockstock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import stock.entity.ItemType;
-import stock.entity.Item;
-import stock.persistence.ItemDao;
-import stock.persistence.ItemTypeDao;
+import com.xyz.stockstock.entity.ItemType;
+import com.xyz.stockstock.entity.Item;
+import com.xyz.stockstock.persistence.ItemDao;
+import com.xyz.stockstock.persistence.ItemTypeDao;
 
 
 @EntityScan(basePackages = "stock")
