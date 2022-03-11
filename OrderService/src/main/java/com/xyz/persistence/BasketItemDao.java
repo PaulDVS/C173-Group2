@@ -15,6 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 public interface BasketItemDao extends JpaRepository<BasketItem, Integer>{
 
     // get all items from OrderId
+    @Query("SELECT * FROM BasketItem WHERE orderId =: orId AND itemId =: itId")
+    public BasketItem findBasketItemByOrderIdAndItemId(@Param("orId") int orderId, @Param("itId") int itemId);
+
+    // get all items from OrderId
     @Query("SELECT * FROM BasketItem WHERE orderId =: orId")
     public List<BasketItem> getAllBasketItemByOrderId(@Param("orId") int orderId);
 
