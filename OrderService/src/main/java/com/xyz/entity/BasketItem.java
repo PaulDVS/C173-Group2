@@ -33,9 +33,4 @@ public class BasketItem {
     @Getter
 	@Setter
 	private int quantity;
-
-	@ManyToOne
-	@Getter
-	@Setter
-    private OrderRecord orderRecord;
 }
