@@ -21,6 +21,12 @@ public class AccountResource {
 		return accountServce.login(userName, password);
 	}
 	
+	@GetMapping(path = "/checkUser/{userEmail}/{userName}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String checkUser(@PathVariable String userEmail, @PathVariable String userName) {
+		String returnString = accountServce.checkUser(userEmail, userName);
+		return returnString;
+	}
+	
 	@PostMapping(path = "/register", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public User register(@RequestBody User user) {
 		return accountServce.register(user);

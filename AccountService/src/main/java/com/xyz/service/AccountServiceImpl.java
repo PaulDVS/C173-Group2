@@ -19,6 +19,22 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public User register(User user) {
+		System.out.println(user);
 		return userDoa.save(user);
+	}
+
+	@Override
+	public String checkUser(String userEmail, String userName) {
+		String returnString = "";
+		
+		if((userDoa.findUserByEmail(userEmail) != null) && (userDoa.findUserByUserName(userName) != null)) {
+			returnString = "Username and Email are both already in use";
+		} else if(userDoa.findUserByEmail(userEmail) != null) {
+			returnString = "Email is already in use";
+		} else if(userDoa.findUserByUserName(userName) != null) {
+			returnString = "Username is already in use";
+		}
+		
+		return returnString;
 	}
 }
