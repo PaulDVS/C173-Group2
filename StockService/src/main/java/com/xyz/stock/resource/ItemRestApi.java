@@ -21,35 +21,35 @@ public class ItemRestApi {
 	@Autowired
 	private ItemService itemService;
 	
-	@PostMapping(value="Items/Add",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/Items/Add",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public Item addItem(@RequestBody Item item) {
 		return itemService.addItem(item);
 	}
 	
-	@GetMapping(value="Items/All",produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/Items/All",produces=MediaType.APPLICATION_JSON_VALUE)
 	public Items getAllItems() {
 		
 		return itemService.getAllItems();
 	}
-	@GetMapping(value="Items/Id/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/Items/Id/{id}",produces=MediaType.APPLICATION_JSON_VALUE)
 	public Item getItemById(@PathVariable int id) {
 		return itemService.getItemById(id);
 	}
 	
-	@PostMapping(value="Items/Type",produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/Items/Type",produces=MediaType.APPLICATION_JSON_VALUE)
 	public Items getItemsByType(@RequestBody ItemType itemType) {
 		return itemService.getItemsByType(itemType);
 	}
-	@GetMapping(value="Items/Price/{id}")
+	@GetMapping(value="/Items/Price/{id}")
 	public float getPriceById(@PathVariable int id) {
 		return itemService.getPriceById(id);
 	}
-	@GetMapping(value="Items/Quantity/{id}")
+	@GetMapping(value="/Items/Quantity/{id}")
 	public int getStockQuantityById(@PathVariable int id) {
 		return itemService.getStockQuantityById(id);
 	}
 	
-	@PutMapping(value="Items/Quantity/Set")
+	@PutMapping(value="/Items/Quantity/Set")
 	public void setStockQuantityById(@RequestBody StockItem stockItem) {
 		itemService.setStockQuantityById(stockItem);
 	}

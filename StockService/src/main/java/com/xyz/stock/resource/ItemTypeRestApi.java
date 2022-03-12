@@ -19,22 +19,22 @@ public class ItemTypeRestApi {
 	private ItemTypeService itemTypeService;
 	
 	
-	@PostMapping(value="ItemTypes/Create",consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/ItemTypes/Create",consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ItemType addItemType (@RequestBody ItemType itemType) {
 	return 	itemTypeService.addItemType(itemType);
 	}
 	
-	@GetMapping(value="ItemTypes/All", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/ItemTypes/All", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ItemTypes getAllTypes() {
 		
 		return itemTypeService.getAllTypes();
 	}
-	@GetMapping(value="ItemTypes/GetTaxRates/ItemType/{itemTypeId}", produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/ItemTypes/GetTaxRates/ItemType/{itemTypeId}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public float getTaxRate(@PathVariable String itemTypeId) {
 		return itemTypeService.getTaxtRate(itemTypeId);
 	}
 	
-	@PostMapping(value="ItemTypes/SetTaxRates/ItemType/{itemTypeId}/{rate}", produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/ItemTypes/SetTaxRates/ItemType/{itemTypeId}/{rate}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemType setTaxRate(@PathVariable String itemTypeId,@PathVariable float rate) {
 		return itemTypeService.setTaxtRate(itemTypeId,rate);
 	}
