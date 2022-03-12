@@ -2,3 +2,7 @@ Paul:
   AccountService
   ShoppingPortal: AccountService, Account Section of controller and Login page
   StockService: Sample Items and ItemTypes
+
+Suraiya: 
+  EmailService
+  Design the web pages 
