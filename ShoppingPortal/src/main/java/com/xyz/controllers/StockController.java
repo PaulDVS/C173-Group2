@@ -21,6 +21,7 @@ public class StockController {
 	@Autowired
 	StockService stockServiceImpl;
 	
+	// handles get request for a list of all types of stock
 	@RequestMapping(value="/getStockTypes", method=RequestMethod.GET)
 	public ModelAndView getStockTypesController() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -30,6 +31,7 @@ public class StockController {
 		return modelAndView;
 	}
 	
+	// handles get request for getting a list of stock of a certain type
 	@RequestMapping(value="/getStockOfType", method=RequestMethod.GET)
 	public ModelAndView getStockOfType() {//@RequestParam("stockType") ItemType type) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -38,6 +40,7 @@ public class StockController {
 		return modelAndView;
 	}
 	
+	// handles get request for getting the quantity of an item
 	@RequestMapping(value="/getStockQuantityById/{id}", method=RequestMethod.GET)
 	public ModelAndView getStockQuantityById(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -48,6 +51,7 @@ public class StockController {
 		return modelAndView;
 	}
 	
+	// handles post request for setting the quantity of an item in stock
 	@RequestMapping(value="/setStockQuantityById/{id}/{quantity}", method=RequestMethod.POST)
 	public ModelAndView setStockQuantityById(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -59,6 +63,7 @@ public class StockController {
 		return modelAndView;
 	}
 	
+	// handles get request for getting the price of an item
 	@RequestMapping(value="/getStockPriceById/{id}", method=RequestMethod.GET)
 	public ModelAndView getStockPriceById(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -69,6 +74,7 @@ public class StockController {
 		return modelAndView;
 	}
 	
+	// handles get request for getting the tax rate for an item of a certain type
 	@RequestMapping(value="/getStockTaxByType", method=RequestMethod.GET)
 	public ModelAndView getStockTaxByType(@RequestParam("stockType") String type) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -77,6 +83,7 @@ public class StockController {
 		return modelAndView;
 	}
 	
+	// handles get request for getting an item by its ID
 	@RequestMapping(value="/searchStockById/{id}", method=RequestMethod.GET)
 	public ModelAndView searchStockController(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();

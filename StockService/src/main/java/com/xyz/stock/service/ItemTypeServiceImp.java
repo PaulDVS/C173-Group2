@@ -15,18 +15,22 @@ public class ItemTypeServiceImp implements ItemTypeService {
 	@Autowired
 	private ItemTypeDao itemTypeDao;
 
+	// gets all item types from the database
 	@Override
 	public ItemTypes getAllTypes() {
 		List<ItemType> types = itemTypeDao.findAll();
 		return new ItemTypes(types);
 	}
 
+	// adds a new item type to the database
 	@Override
 	public ItemType addItemType(ItemType itemType) {
 
 		return itemTypeDao.save(itemType);
 	}
-@Override
+	
+	// sets the tax rate for an item type in the database
+	@Override
 	public ItemType setTaxtRate(String itemTypeId, float taxRate) {
 
 		var foundItem = itemTypeDao.findById(itemTypeId).get();
@@ -38,7 +42,9 @@ public class ItemTypeServiceImp implements ItemTypeService {
 		}
 		return null;
 	}
-@Override
+	
+	// gets the tax rate for an item type from the database
+	@Override
 	public float getTaxtRate(String itemTypeId) {
 
 		var foundItem = itemTypeDao.findById(itemTypeId);

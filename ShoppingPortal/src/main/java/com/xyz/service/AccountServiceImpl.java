@@ -14,11 +14,14 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	// attempts to log in a user
 	@Override
 	public User loginCheck(String userName, String password) {
 		return restTemplate.getForObject("http://localhost:8083/login/" + userName + "/" + password, User.class);
 	}
 
+	// attempts to register a new user account and returns the user
+	// throws a UserCreationError if there is an issue with the creation details
 	@Override
 	public User registerCheck(User user) throws UserCreationError {
 		User checkUser = null;

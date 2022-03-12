@@ -17,7 +17,7 @@ public class ShopController {
 	@Autowired
 	AccountService accountService;
 	
-	
+	// returns the data for the home page
 	@RequestMapping("/")
 	public ModelAndView getMainPageController() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -26,6 +26,7 @@ public class ShopController {
 		return modelAndView;
 	}
 	
+	// attempts to log a user in and returns the result
 	@RequestMapping("/Login")
 	public ModelAndView attemptLogin(@ModelAttribute("userName") String userName, @ModelAttribute("password") String password, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -41,6 +42,7 @@ public class ShopController {
 		return modelAndView;
 	}
 	
+	// attempts to register a new user and returns the result
 	@RequestMapping("/Register")
 	public ModelAndView createAccount(@ModelAttribute("userEmail") String userEmail, @ModelAttribute("userPhone") String userPhone, @ModelAttribute("userAdd") String userAdd, @ModelAttribute("userName") String userName, @ModelAttribute("password") String password, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();

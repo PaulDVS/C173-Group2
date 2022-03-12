@@ -16,21 +16,25 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
 	private OrderRecordDao orderRecordDao;
 
+    // gets all order records from the database
     @Override
     public List<OrderRecord> getAllOrderRecords() {
         return orderRecordDao.findAll();
     }
 
+    // gets the email address of the customer who made an order by ID
     @Override
     public String findCustomerEmailByOrderId(int orderId) {
         return orderRecordDao.findCustomerEmailByOrderId(orderId);
     }
 
+    // finds all orders made by a customer by their email address
     @Override
     public List<OrderRecord> findOrdersByCustomerEmail(String cEmail) {
         return orderRecordDao.findOrderByCustomerEmail(cEmail);
     }
 
+    // adds the items in a user's basket to their order
     @Override
     public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
@@ -45,6 +49,7 @@ public class OrderServiceImpl implements OrderService{
         return null;
     }
 
+    // removes basket items from an order
     @Override
     public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
@@ -58,6 +63,7 @@ public class OrderServiceImpl implements OrderService{
         return null;
     }
 
+    // checks out an order
     @Override
     public OrderRecord confirmOrder(int OrderId) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
@@ -68,11 +74,13 @@ public class OrderServiceImpl implements OrderService{
         return null;
     }
 
+    // finds an order in the database by its ID
     @Override
     public OrderRecord findOrderByOrderId(int orderId) {
         return orderRecordDao.findById(orderId).get();
     }
 
+    // creates a new order record
     @Override
     public OrderRecord createOrderRecord(OrderRecord orderRecord) {
         return orderRecordDao.save(orderRecord);
