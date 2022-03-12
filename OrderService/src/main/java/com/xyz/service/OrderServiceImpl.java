@@ -67,12 +67,7 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderRecord confirmOrder(int OrderId) {
-        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
-        if(!result.isEmpty()){
-            result.get().setCheckedOut(true);
-            return orderRecordDao.save(result.get());
-        }
-        return null;
+        return orderRecordDao.checkOutOrderById(OrderId);
     }
 
     
