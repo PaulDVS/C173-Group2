@@ -34,17 +34,20 @@ public class OrderServiceImpl implements OrderService{
         return orderRecordDao.findOrderByCustomerEmail(cEmail);
     }
 
-    // adds the items in a user's basket to their order
+    // creates a new order record
+    @Override
+    public OrderRecord createOrderRecord(OrderRecord orderRecord) {
+        return orderRecordDao.save(orderRecord);
+    }
+
     @Override
     public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
-       
         if(!result.isEmpty()){
-        	  OrderRecord order = result.get();
             basketItems.getListItems().forEach(basketItem -> {
-            	order.getListItems().add(basketItem);
+                result.get().getListItems().add(basketItem);
             });
-            return orderRecordDao.save(order);
+            return orderRecordDao.save(result.get());
         }
         return null;
     }
@@ -54,11 +57,10 @@ public class OrderServiceImpl implements OrderService{
     public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
         if(!result.isEmpty()){
-        	  OrderRecord order = result.get();
             basketItems.getListItems().forEach(basketItem -> {
-            	order.getListItems().remove(basketItem);
+            	result.get().getListItems().remove(basketItem);
             });
-            return orderRecordDao.save(order);
+            return orderRecordDao.save(result.get());
         }
         return null;
     }
@@ -74,16 +76,12 @@ public class OrderServiceImpl implements OrderService{
         return null;
     }
 
+    
+    
     // finds an order in the database by its ID
     @Override
     public OrderRecord findOrderByOrderId(int orderId) {
         return orderRecordDao.findById(orderId).get();
-    }
-
-    // creates a new order record
-    @Override
-    public OrderRecord createOrderRecord(OrderRecord orderRecord) {
-        return orderRecordDao.save(orderRecord);
     }
     
     // @Override

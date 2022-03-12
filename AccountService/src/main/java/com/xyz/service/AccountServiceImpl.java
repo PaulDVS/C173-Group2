@@ -12,20 +12,21 @@ public class AccountServiceImpl implements AccountService {
 	@Autowired
 	UserDao userDoa;
 
-	// attempts to log in a user
+	//Login service
 	@Override
 	public User login(String userName, String password) {
 		return userDoa.findUserByUserNameAndPassword(userName, password);
 	}
 
-	// registers a new user
+	//Register service
 	@Override
 	public User register(User user) {
 		System.out.println(user);
 		return userDoa.save(user);
 	}
 
-	// checks the availability of account credentials
+	//Service to check if username and email are unique
+	//If they are unique return an empty string, otherwise return an appropriate statement
 	@Override
 	public String checkUser(String userEmail, String userName) {
 		String returnString = "";

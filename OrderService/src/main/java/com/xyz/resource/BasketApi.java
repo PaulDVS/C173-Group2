@@ -11,7 +11,9 @@ import com.xyz.entity.BasketItems;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,15 +35,15 @@ public class BasketApi {
 		return orderService.createOrderRecord(orderRecord);
 	}
 
-	// adds items to an existing order in the database
-    @PostMapping(value="Orders/add",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public OrderRecord addItems(@RequestBody int orderId, @RequestBody BasketItems basketItems) {
+	//adds items to an existing order in the database by ID
+    @PostMapping(value="Orders/Add/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public OrderRecord addItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
 		return orderService.addBasketItemsToOrder(orderId, basketItems);
 	}
 
-    // removes items from an existing order
-    @PostMapping(value="Orders/remove",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public OrderRecord removeItems(@RequestBody int orderId, @RequestBody BasketItems basketItems) {
+	//removes items from an existing order
+    @DeleteMapping(value="Orders/Remove/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public OrderRecord removeItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
 		return orderService.removeBasketItemsToOrder(orderId, basketItems);
 	}
 }
