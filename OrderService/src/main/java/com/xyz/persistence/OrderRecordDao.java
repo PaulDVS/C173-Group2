@@ -23,8 +23,8 @@ public interface OrderRecordDao extends JpaRepository<OrderRecord, Integer>{
     @Query("FROM OrderRecord WHERE customerEmail =: cEmail")
     public List<OrderRecord> findOrderByCustomerEmail(@Param("cEmail") String cEmail);
 
-    @Transactional
-	@Modifying
-	@Query("UPDATE FROM OrderRecord SET checkedOut = 1 WHERE OrderId =: oId")
-    public OrderRecord checkOutOrderById(@Param("oId") int OrderId);
+    // @Transactional
+	// @Modifying
+	// @Query("UPDATE FROM OrderRecord SET checkedOut = 1 WHERE OrderId =: oId")
+    // public void checkOutOrderById(@Param("oId") int OrderId);
 }
