@@ -1,15 +1,21 @@
 package com.xyz.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.xyz.entity.BasketItem;
 import com.xyz.entity.BasketItems;
 import com.xyz.entity.OrderRecord;
 
 public interface OrderService {
-    public String findCustomerEmailByOrderId(int id);
 
-    public OrderRecord findOrderByCustomerEmail(String cEmail);
+    public List<OrderRecord> getAllOrderRecords();
+
+    public String findCustomerEmailByOrderId(int orderId);
+
+    public OrderRecord findOrderByOrderId(int orderId);
+
+    public List<OrderRecord> findOrdersByCustomerEmail(String cEmail);
 
     public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems);
 

@@ -18,12 +18,17 @@ public class OrderServiceImpl implements OrderService{
 	private OrderRecordDao orderRecordDao;
 
     @Override
-    public String findCustomerEmailByOrderId(int id) {
-        return orderRecordDao.findCustomerEmailByOrderId(id);
+    public List<OrderRecord> getAllOrderRecords() {
+        return orderRecordDao.findAll();
     }
 
     @Override
-    public OrderRecord findOrderByCustomerEmail(String cEmail) {
+    public String findCustomerEmailByOrderId(int orderId) {
+        return orderRecordDao.findCustomerEmailByOrderId(orderId);
+    }
+
+    @Override
+    public List<OrderRecord> findOrdersByCustomerEmail(String cEmail) {
         return orderRecordDao.findOrderByCustomerEmail(cEmail);
     }
 
@@ -60,6 +65,13 @@ public class OrderServiceImpl implements OrderService{
         }
         return null;
     }
+
+    @Override
+    public OrderRecord findOrderByOrderId(int orderId) {
+        return orderRecordDao.findById(orderId).get();
+    }
+
+    
 
     // @Override
     // public OrderRecord setBasketItemQuantityToOrder(int OrderId, BasketItem basketItem, int quantity) {
