@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 public interface OrderRecordDao extends JpaRepository<OrderRecord, Integer>{
 
     @Query("SELECT customerEmail FROM OrderRecord WHERE orderId=:oId")
-    public List<String> findCustomerEmailByOrderId(@Param("oId") int id);
+    public String findCustomerEmailByOrderId(@Param("oId") int id);
 
     @Query("FROM OrderRecord WHERE customerEmail =: cEmail")
     public OrderRecord findOrderByCustomerEmail(@Param("cEmail") String cEmail);

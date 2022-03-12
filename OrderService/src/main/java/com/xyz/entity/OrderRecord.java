@@ -37,7 +37,7 @@ public class OrderRecord {
 	@Setter
 	private boolean checkedOut;
 
-	@OneToMany(mappedBy = "orderRecord")
+	@OneToMany
 	@Getter
 	@Setter
   	private List<BasketItem> basketItems;

@@ -1,7 +1,10 @@
 package com.xyz.service;
 
 import java.util.List;
+import java.util.Optional;
 
+import com.xyz.entity.BasketItem;
+import com.xyz.entity.BasketItems;
 import com.xyz.entity.OrderRecord;
 import com.xyz.persistence.OrderRecordDao;
 
@@ -15,7 +18,7 @@ public class OrderServiceImpl implements OrderService{
 	private OrderRecordDao orderRecordDao;
 
     @Override
-    public List<String> findCustomerEmailByOrderId(int id) {
+    public String findCustomerEmailByOrderId(int id) {
         return orderRecordDao.findCustomerEmailByOrderId(id);
     }
 
@@ -25,8 +28,46 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderRecord checkOutOrderById(int orderId) {
-
-        return orderRecordDao.checkOutOrderById(orderId);
+    public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) {
+        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+        if(!result.isEmpty()){
+            basketItems.getBasketItems().forEach(basketItem -> {
+                result.get().getBasketItems().add(basketItem);
+            });
+            return orderRecordDao.save(result.get());
+        }
+        return null;
     }
+
+    @Override
+    public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems) {
+        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+        if(!result.isEmpty()){
+            basketItems.getBasketItems().forEach(basketItem -> {
+                result.get().getBasketItems().remove(basketItem);
+            });
+            return orderRecordDao.save(result.get());
+        }
+        return null;
+    }
+
+    @Override
+    public OrderRecord confirmOrder(int OrderId) {
+        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+        if(!result.isEmpty()){
+            result.get().setCheckedOut(true);
+            return orderRecordDao.save(result.get());
+        }
+        return null;
+    }
+
+    // @Override
+    // public OrderRecord setBasketItemQuantityToOrder(int OrderId, BasketItem basketItem, int quantity) {
+    //     Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+    //     result.get().getBasketItems().
+    //     Optional<BasketItem> basketItem = orderRecord.find
+    //     return null;
+    // }
+
+   
 }
