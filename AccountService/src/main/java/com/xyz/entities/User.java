@@ -1,5 +1,6 @@
 package com.xyz.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -26,6 +27,7 @@ public class User {
 	private String customerAddress;
 	@Getter
 	@Setter
+	@Column(unique=true)
 	private String customerName;
 	@Getter
 	@Setter
