@@ -17,7 +17,7 @@ public class ShopController {
 	@Autowired
 	AccountService accountService;
 	
-	
+	//Homepage, takes the user to the Login/Register webpage.
 	@RequestMapping("/")
 	public ModelAndView getMainPageController() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -26,6 +26,9 @@ public class ShopController {
 		return modelAndView;
 	}
 	
+	//Attempt to login using a username and password
+		//On fail go back to Login page with an appropriate message
+		//On success go to Store Selection page and load user into session
 	@RequestMapping("/Login")
 	public ModelAndView attemptLogin(@ModelAttribute("userName") String userName, @ModelAttribute("password") String password, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
@@ -41,6 +44,9 @@ public class ShopController {
 		return modelAndView;
 	}
 	
+	//Attempt to register a new user using input details
+		//If the code doesn't throw an exception go to Store Selection page and load user into session
+		//If an error is thrown go back to Login page and display the error message.
 	@RequestMapping("/Register")
 	public ModelAndView createAccount(@ModelAttribute("userEmail") String userEmail, @ModelAttribute("userPhone") String userPhone, @ModelAttribute("userAdd") String userAdd, @ModelAttribute("userName") String userName, @ModelAttribute("password") String password, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();

@@ -20,9 +20,11 @@ public class AccountServiceApplication /*implements CommandLineRunner*/  {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AccountServiceApplication.class, args);
-		//
 	}
 
+	
+	//Some sample User initialisation
+	
 //	@Override
 //	public void run(String... args) throws Exception {
 //		User user1 = new User("Colman@Wiley.com", "0800 000 0001", "123 North Street", "Colman", "root");
