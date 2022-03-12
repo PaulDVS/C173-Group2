@@ -25,9 +25,9 @@ public interface BasketItemDao extends JpaRepository<BasketItem, Integer>{
     @Query("FROM BasketItem WHERE orderId =: oId")
     public List<BasketItem> getAllBasketItemByOrderId(@Param("oId") int orderId);
 
-    // get all items from current and past Orders by CustomerEmail
-    @Query("FROM BasketItem WHERE customerEmail =: cEmail")
-    public List<BasketItem> getAllBasketItemByCustomerEmail(@Param("cEmail") String customerEmail);
+    // // get all items from current and past Orders by CustomerEmail
+    // @Query("FROM BasketItem WHERE customerEmail =: cEmail")
+    // public List<BasketItem> getAllBasketItemByCustomerEmail(@Param("cEmail") String customerEmail);
 
     // get all items from past Order (checkedOut items) by customerEmail
     @Query("FROM BasketItem WHERE customerEmail =: cEmail AND checkedOut = 1")
@@ -40,13 +40,13 @@ public interface BasketItemDao extends JpaRepository<BasketItem, Integer>{
     // update quantity by adding, looked up by orderId and itemId
     @Transactional
 	@Modifying
-	@Query("UPDATE BasketItem SET quantity=: quantity + ItQuantity WHERE itemId =: itId AND OrderId =: oId")
+	@Query("UPDATE BasketItem SET quantity=: ItQuantity WHERE itemId =: itId AND OrderId =: oId")
     public BasketItem addQuantityById(@Param("oId") int orderId, @Param("itId") int itemId, @Param("ItQuantity") int quantity);
 
     // update quantity by subtracting, looked up by orderId and itemId
     @Transactional
 	@Modifying
-	@Query("UPDATE BasketItem SET quantity=: quantity - ItQuantity WHERE itemId =: itId AND OrderId =: oId")
+	@Query("UPDATE BasketItem SET quantity=: ItQuantity WHERE itemId =: itId AND OrderId =: oId")
     public BasketItem subQuantityById(@Param("oId") int orderId, @Param("itId") int itemId, @Param("ItQuantity") int quantity);
 
     // discard basket, only discards unCheckOut items, delete all items by OrderId
