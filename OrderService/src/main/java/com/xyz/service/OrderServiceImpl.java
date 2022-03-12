@@ -27,20 +27,28 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
+    public OrderRecord findOrderByOrderId(int orderId) {
+        return orderRecordDao.findById(orderId).get();
+    }
+
+    @Override
     public List<OrderRecord> findOrdersByCustomerEmail(String cEmail) {
         return orderRecordDao.findOrderByCustomerEmail(cEmail);
     }
 
     @Override
+    public OrderRecord createOrderRecord(OrderRecord orderRecord) {
+        return orderRecordDao.save(orderRecord);
+    }
+
+    @Override
     public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
-       
         if(!result.isEmpty()){
-        	  OrderRecord order = result.get();
             basketItems.getListItems().forEach(basketItem -> {
-            	order.getListItems().add(basketItem);
+                result.get().getListItems().add(basketItem);
             });
-            return orderRecordDao.save(order);
+            return orderRecordDao.save(result.get());
         }
         return null;
     }
@@ -49,11 +57,10 @@ public class OrderServiceImpl implements OrderService{
     public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
         if(!result.isEmpty()){
-        	  OrderRecord order = result.get();
             basketItems.getListItems().forEach(basketItem -> {
-            	order.getListItems().remove(basketItem);
+            	result.get().getListItems().remove(basketItem);
             });
-            return orderRecordDao.save(order);
+            return orderRecordDao.save(result.get());
         }
         return null;
     }
@@ -68,15 +75,6 @@ public class OrderServiceImpl implements OrderService{
         return null;
     }
 
-    @Override
-    public OrderRecord findOrderByOrderId(int orderId) {
-        return orderRecordDao.findById(orderId).get();
-    }
-
-    @Override
-    public OrderRecord createOrderRecord(OrderRecord orderRecord) {
-        return orderRecordDao.save(orderRecord);
-    }
     
     // @Override
     // public OrderRecord setBasketItemQuantityToOrder(int OrderId, BasketItem basketItem, int quantity) {
