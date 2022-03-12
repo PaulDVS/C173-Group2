@@ -23,7 +23,7 @@ public class BasketItem {
 
 	@Getter
 	@Setter
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue
 	private int basketItemId;
 
     @Getter

@@ -26,7 +26,7 @@ public class OrderRecord {
 
 	@Getter
 	@Setter
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue
 	private int orderId;
 
 	@Getter
@@ -37,8 +37,8 @@ public class OrderRecord {
 	@Setter
 	private boolean checkedOut;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL , orphanRemoval = true)
 	@Getter
 	@Setter
-  	private List<BasketItem> basketItems;
+  	private List<BasketItem> listItems;
 }

@@ -26,7 +26,7 @@ public class BasketApi {
 		return orderService.getAllOrderRecords();
 	}
 
-	@PostMapping(value="Orders/create",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="Orders/Create",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public OrderRecord createOrder(@RequestBody OrderRecord orderRecord) {
 		return orderService.createOrderRecord(orderRecord);
 	}

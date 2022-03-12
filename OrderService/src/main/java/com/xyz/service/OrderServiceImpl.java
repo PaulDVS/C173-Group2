@@ -3,7 +3,6 @@ package com.xyz.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.xyz.entity.BasketItem;
 import com.xyz.entity.BasketItems;
 import com.xyz.entity.OrderRecord;
 import com.xyz.persistence.OrderRecordDao;
@@ -35,11 +34,13 @@ public class OrderServiceImpl implements OrderService{
     @Override
     public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+       
         if(!result.isEmpty()){
-            basketItems.getBasketItems().forEach(basketItem -> {
-                result.get().getBasketItems().add(basketItem);
+        	  OrderRecord order = result.get();
+            basketItems.getListItems().forEach(basketItem -> {
+            	order.getListItems().add(basketItem);
             });
-            return orderRecordDao.save(result.get());
+            return orderRecordDao.save(order);
         }
         return null;
     }
@@ -48,10 +49,11 @@ public class OrderServiceImpl implements OrderService{
     public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
         if(!result.isEmpty()){
-            basketItems.getBasketItems().forEach(basketItem -> {
-                result.get().getBasketItems().remove(basketItem);
+        	  OrderRecord order = result.get();
+            basketItems.getListItems().forEach(basketItem -> {
+            	order.getListItems().remove(basketItem);
             });
-            return orderRecordDao.save(result.get());
+            return orderRecordDao.save(order);
         }
         return null;
     }
