@@ -13,10 +13,10 @@ import com.xyz.persistence.UserDao;
 @SpringBootApplication(scanBasePackages ="com.xyz")
 @EntityScan(basePackages = "com.xyz.entities")
 @EnableJpaRepositories(basePackages = "com.xyz.persistence")
-public class AccountServiceApplication /*implements CommandLineRunner */ {
+public class AccountServiceApplication /*implements CommandLineRunner*/  {
 
-//	@Autowired
-//	UserDao userDoa;
+	//@Autowired
+	//UserDao userDao;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(AccountServiceApplication.class, args);
@@ -32,11 +32,11 @@ public class AccountServiceApplication /*implements CommandLineRunner */ {
 //		User user5 = new User("Suraiya@Wiley.com", "0800 000 0005", "12 High Street", "Suraiya", "password");
 //		
 //		
-//		userDoa.save(user1);
-//		userDoa.save(user2);
-//		userDoa.save(user3);
-//		userDoa.save(user4);
-//		userDoa.save(user5);
+//		userDao.save(user1);
+//		userDao.save(user2);
+//		userDao.save(user3);
+//		userDao.save(user4);
+//		userDao.save(user5);
 //		
 //	}
 }
