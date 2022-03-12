@@ -58,7 +58,8 @@ public class OrderServiceImpl implements OrderService{
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
         if(!result.isEmpty()){
             basketItems.getListItems().forEach(basketItem -> {
-            	result.get().getListItems().remove(basketItem);
+            	// please try to find each Item Basket inside the result and then remove it
+            	result.get().getListItems().remove(basketItem.getItemId());
             });
             return orderRecordDao.save(result.get());
         }
