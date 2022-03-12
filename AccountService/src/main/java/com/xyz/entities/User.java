@@ -27,7 +27,7 @@ public class User {
 	private String customerAddress;
 	@Getter
 	@Setter
-	@Column(unique=true)
+	@Column(unique=true) // Makes sure that customer name is unique
 	private String customerName;
 	@Getter
 	@Setter
