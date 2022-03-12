@@ -21,17 +21,22 @@ public class BasketApi {
     @Autowired
 	private OrderService orderService;
 
-	@GetMapping(value="/",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/Orders",produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<OrderRecord> viewItems() {
 		return orderService.getAllOrderRecords();
 	}
 
-    @PostMapping(value="Basket/addItems",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="Orders/create",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	public OrderRecord createOrder(@RequestBody OrderRecord orderRecord) {
+		return orderService.createOrderRecord(orderRecord);
+	}
+
+    @PostMapping(value="Orders/add",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public OrderRecord addItems(@RequestBody int orderId, @RequestBody BasketItems basketItems) {
 		return orderService.addBasketItemsToOrder(orderId, basketItems);
 	}
 
-    @PostMapping(value="Basket/removeItems",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="Orders/remove",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public OrderRecord removeItems(@RequestBody int orderId, @RequestBody BasketItems basketItems) {
 		return orderService.removeBasketItemsToOrder(orderId, basketItems);
 	}

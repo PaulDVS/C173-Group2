@@ -71,8 +71,11 @@ public class OrderServiceImpl implements OrderService{
         return orderRecordDao.findById(orderId).get();
     }
 
+    @Override
+    public OrderRecord createOrderRecord(OrderRecord orderRecord) {
+        return orderRecordDao.save(orderRecord);
+    }
     
-
     // @Override
     // public OrderRecord setBasketItemQuantityToOrder(int OrderId, BasketItem basketItem, int quantity) {
     //     Optional<OrderRecord> result = orderRecordDao.findById(OrderId);

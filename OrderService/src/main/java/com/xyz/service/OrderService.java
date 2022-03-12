@@ -17,6 +17,8 @@ public interface OrderService {
 
     public List<OrderRecord> findOrdersByCustomerEmail(String cEmail);
 
+    public OrderRecord createOrderRecord(OrderRecord orderRecord);
+
     public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems);
 
     public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems);
