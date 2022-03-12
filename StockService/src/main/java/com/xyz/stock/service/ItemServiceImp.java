@@ -1,6 +1,7 @@
 package com.xyz.stock.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.xyz.stock.entity.Item;
 import com.xyz.stock.entity.ItemType;
 import com.xyz.stock.entity.Items;
+import com.xyz.stock.entity.StockItem;
 import com.xyz.stock.persistence.ItemDao;
 
 @Service
@@ -37,14 +39,19 @@ public class ItemServiceImp implements ItemService {
 
 	}
 	public Item getItemById(int itemId) {
+		Optional<Item> optResult = itemDao.findById(itemId);
+		if(!optResult.isEmpty()) {
+			return optResult.get();
+		}
 		
-		return itemDao.findById(itemId).get();
+		return new Item(itemId,"", null, 0.0f, 0) ;
 	}
 	
 	public int getStockQuantityById(int itemId) {
 		
-		Item result = itemDao.findById(itemId).get();
-		if (result != null) {
+		Optional<Item> optResult = itemDao.findById(itemId);
+		if(!optResult.isEmpty()) {
+			Item result = optResult.get();
 			return result.getQuantity();
 		}
 		return NO_QUANTITY;
@@ -52,12 +59,23 @@ public class ItemServiceImp implements ItemService {
 	}
 	public float getPriceById(int itemId) {
 		
-		Item result = itemDao.findById(itemId).get();
-		if (result != null) {
+		Optional<Item> optResult = itemDao.findById(itemId);
+		if(!optResult.isEmpty()) {
+			Item result = optResult.get();
 			return result.getPrice();
 		}
 		
 		return NO_PRICE;
+	}
+
+	
+	public void setStockQuantityById(StockItem stockItem) {
+		Optional<Item> optResult = itemDao.findById(stockItem.getItemId());
+		if(!optResult.isEmpty()) {
+			Item result = optResult.get();
+			result.setQuantity(stockItem.getQuantity());
+			itemDao.save(result);
+		}
 	}
 	
 }

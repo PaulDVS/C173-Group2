@@ -3,6 +3,7 @@ package com.xyz.stock.service;
 import com.xyz.stock.entity.Item;
 import com.xyz.stock.entity.ItemType;
 import com.xyz.stock.entity.Items;
+import com.xyz.stock.entity.StockItem;
 
 public interface ItemService {
 	public Item addItem(Item item);
@@ -11,4 +12,5 @@ public interface ItemService {
 	public Item getItemById(int itemId);
 	public int getStockQuantityById(int itemId);
 	public float getPriceById(int itemId);
+	public void setStockQuantityById(StockItem stockItem);
 }
