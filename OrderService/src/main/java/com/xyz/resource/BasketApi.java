@@ -45,7 +45,7 @@ public class BasketApi {
 	}
 
 	@PutMapping(value="Orders/Confirm/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE)
-	public OrderRecord confirmOrder(@PathVariable int orderId) {
-		return orderService.confirmOrder(orderId);
+	public void confirmOrder(@PathVariable int orderId) {
+		orderService.confirmOrder(orderId);
 	}
 }

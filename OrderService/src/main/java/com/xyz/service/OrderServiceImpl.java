@@ -3,8 +3,10 @@ package com.xyz.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.xyz.entity.BasketItem;
 import com.xyz.entity.BasketItems;
 import com.xyz.entity.OrderRecord;
+import com.xyz.persistence.BasketItemDao;
 import com.xyz.persistence.OrderRecordDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class OrderServiceImpl implements OrderService{
 
     @Autowired
 	private OrderRecordDao orderRecordDao;
+
+    @Autowired
+	private BasketItemDao basketItemDao;
 
     @Override
     public List<OrderRecord> getAllOrderRecords() {
@@ -58,8 +63,8 @@ public class OrderServiceImpl implements OrderService{
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
         if(!result.isEmpty()){
             basketItems.getListItems().forEach(basketItem -> {
-            	// please try to find each Item Basket inside the result and then remove it
-            	result.get().getListItems().remove(basketItem.getItemId());
+                BasketItem basketItemToRemove = basketItemDao.getById(basketItem.getBasketItemId());
+            	result.get().getListItems().remove(basketItemToRemove);
             });
             return orderRecordDao.save(result.get());
         }
@@ -68,9 +73,14 @@ public class OrderServiceImpl implements OrderService{
 
     @Override
     public OrderRecord confirmOrder(int OrderId) {
-        return orderRecordDao.checkOutOrderById(OrderId);
+        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+        if(!result.isEmpty()){
+            OrderRecord orderRecord = result.get();
+            orderRecord.setCheckedOut(true);
+            return orderRecordDao.save(orderRecord);
+        }
+        return null;
     }
-
     
     // @Override
     // public OrderRecord setBasketItemQuantityToOrder(int OrderId, BasketItem basketItem, int quantity) {
