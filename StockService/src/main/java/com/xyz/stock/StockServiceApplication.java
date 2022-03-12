@@ -13,16 +13,16 @@ import com.xyz.stock.persistence.ItemDao;
 import com.xyz.stock.persistence.ItemTypeDao;
 
 
-@EntityScan(basePackages = "stock")
-@EnableJpaRepositories(basePackages = "stock.persistence")
-@SpringBootApplication(scanBasePackages = "stock")
+@EntityScan(basePackages = "com.xyz.stock.entity")
+@EnableJpaRepositories(basePackages = "com.xyz.stock.persistence")
+@SpringBootApplication(scanBasePackages = "com.xyz.stock")
 public class StockServiceApplication /*implements CommandLineRunner*/ {
 
-	@Autowired
-	ItemDao itemDoa;
+	//@Autowired
+	//ItemDao itemDoa;
 	
-	@Autowired
-	ItemTypeDao itemTypeDoa;
+//	@Autowired
+//	ItemTypeDao itemTypeDoa;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(StockServiceApplication.class, args);

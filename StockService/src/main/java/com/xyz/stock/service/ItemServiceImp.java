@@ -28,9 +28,8 @@ public class ItemServiceImp implements ItemService {
 	}
 	
 	public Items getAllItems() {
-		List<Item> items= itemDao.findAll();
-		
-		return new Items(items);
+		List<Item> listItem= itemDao.findAll();
+		return new Items(listItem);
 		
 	}
 	public Items getItemsByType(ItemType itemType) {
