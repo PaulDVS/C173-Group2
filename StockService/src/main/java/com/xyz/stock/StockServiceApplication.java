@@ -1,4 +1,4 @@
-package stock;
+package com.xyz.stock;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import stock.entity.ItemType;
-import stock.entity.Item;
-import stock.persistence.ItemDao;
-import stock.persistence.ItemTypeDao;
+import com.xyz.stock.entity.ItemType;
+import com.xyz.stock.entity.Item;
+import com.xyz.stock.persistence.ItemDao;
+import com.xyz.stock.persistence.ItemTypeDao;
 
 
 @EntityScan(basePackages = "stock")
@@ -68,7 +68,7 @@ public class StockServiceApplication /*implements CommandLineRunner*/ {
 //		Item item24 = new Item(3004, "Cosmetic 4", itemType3, 39, 1000);
 //		Item item25 = new Item(3005, "Cosmetic 5", itemType3, 49, 1000);
 //		Item item26 = new Item(3006, "Cosmetic 6", itemType3, 59, 1000);
-//		Item item27 = new Item(7, "Cosmetic 7", itemType3, 49, 1000);
+//		Item item27 = new Item(3007, "Cosmetic 7", itemType3, 49, 1000);
 //		Item item28 = new Item(3008, "Cosmetic 8", itemType3, 29, 1000);
 //		Item item29 = new Item(3009, "Cosmetic 9", itemType3, 99, 1000);
 //		Item item30 = new Item(3010, "Cosmetic 10", itemType3, 50, 30);

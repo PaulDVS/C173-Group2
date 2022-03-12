@@ -16,4 +16,9 @@ public class AccountServiceImpl implements AccountService {
 	public User login(String userName, String password) {
 		return userDoa.findUserByUserNameAndPassword(userName, password);
 	}
+
+	@Override
+	public User register(User user) {
+		return userDoa.save(user);
+	}
 }
