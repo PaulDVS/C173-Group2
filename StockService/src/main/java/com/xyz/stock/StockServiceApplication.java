@@ -68,7 +68,7 @@ public class StockServiceApplication /*implements CommandLineRunner*/ {
 //		Item item24 = new Item(3004, "Cosmetic 4", itemType3, 39, 1000);
 //		Item item25 = new Item(3005, "Cosmetic 5", itemType3, 49, 1000);
 //		Item item26 = new Item(3006, "Cosmetic 6", itemType3, 59, 1000);
-//		Item item27 = new Item(7, "Cosmetic 7", itemType3, 49, 1000);
+//		Item item27 = new Item(3007, "Cosmetic 7", itemType3, 49, 1000);
 //		Item item28 = new Item(3008, "Cosmetic 8", itemType3, 29, 1000);
 //		Item item29 = new Item(3009, "Cosmetic 9", itemType3, 99, 1000);
 //		Item item30 = new Item(3010, "Cosmetic 10", itemType3, 50, 30);
