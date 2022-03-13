@@ -24,8 +24,7 @@ public class BasketItem {
 
 	@Getter
 	@Setter
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+	@Id
 	private int basketItemId;
 
     @Getter
@@ -36,9 +35,5 @@ public class BasketItem {
 	@Setter
 	private int quantity;
 
-	@Getter
-	@Setter
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderId")
-    private OrderRecord orderRecord;
+	
 }

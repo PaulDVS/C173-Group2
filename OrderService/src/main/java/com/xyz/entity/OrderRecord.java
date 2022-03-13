@@ -40,9 +40,7 @@ public class OrderRecord{
 	@Setter
 	private boolean checkedOut;
 
-	@OneToMany(cascade = CascadeType.ALL, 
-	fetch = FetchType.LAZY, 
-	mappedBy = "orderRecord")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@Getter
 	@Setter
   	private List<BasketItem> items;

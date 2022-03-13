@@ -36,41 +36,15 @@ public class BasketApi {
 		return orderService.createOrderRecord(orderRecord);
 	}
 
-
-    @PostMapping(value="Orders/Items/Add/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	// public OrderRecord addItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
-	public ResultImp<OrderRecord> addItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
-		
-    	ResultImp<OrderRecord> result=new ResultImp<OrderRecord>("The Item added Successfully",null); 
-    	try {
-			var res = orderService.addBasketItemsToOrder(orderId, basketItems);
-			// result = new ResultImp<OrderRecord>("The Item added Successfully",res); 
-			result.setObject(res);
-			return result;
-		} catch (AddBasketItemException e) {
-		
-			 result .setMessage(e.getMessage()); 
-		
-		}
-		
-		return result;
-		// return orderService.addBasketItemsToOrder(orderId, basketItems);
-	}
-
     @DeleteMapping(value="Orders/Items/Remove/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public OrderRecord removeItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
 		return orderService.removeBasketItemsFromOrder(orderId, basketItems);
 	}
 
-    // @PostMapping(value="Orders/Add/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	// public OrderRecord addItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
-	// 	return orderService.addBasketItemsToOrder(orderId, basketItems);
-	// }
-
-    // @DeleteMapping(value="Orders/Remove/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	// public OrderRecord removeItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
-	// 	return orderService.removeBasketItemsToOrder(orderId, basketItems);
-	// }
+     @PostMapping(value="Orders/Items/Add/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	 public OrderRecord addItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
+	 	return orderService.addBasketItemsToOrder(orderId, basketItems);
+	 }
 
 
 	@PutMapping(value="Orders/Confirm/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE)

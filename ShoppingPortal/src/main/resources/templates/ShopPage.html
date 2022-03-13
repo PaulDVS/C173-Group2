@@ -20,7 +20,33 @@
 		<td th:text ="${item.price}"></td>
 	</tr>
 </table>
-
+<div class ="row">
+	<div class = "box">
+		<!-- comes from database , Book Cd, Cosmetic-->
+		 book 
+	</div>
+</div>
+<table>
+	<thead>
+	<tr>
+	<th>ID</th>
+	<th>Name</th>
+	<th>Type</th>
+	<th>Price</th>
+	<th>Quantity</th>
+	</tr>
+	</thead>
+	<tbody th:each = "item : ${items}" >
+	<tr>
+	<td th:text="${item.id}"></td>
+	<td th:text="${item.name}"></td>
+	<td th:text="${item.type.type}"></td>
+	<td th:text="${item.price}"></td>
+	<td th:text="${item.quantity}"></td>
+	</tr>
+	
+	</tbody>
+	</table>
 
 <a href="./StoreSelection">Go to Store Selection</a>
 </body>
