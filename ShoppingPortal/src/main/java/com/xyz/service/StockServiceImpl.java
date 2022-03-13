@@ -1,6 +1,7 @@
 package com.xyz.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.xyz.entities.Item;
@@ -9,6 +10,7 @@ import com.xyz.entities.Items;
 import com.xyz.entities.StockItem;
 import com.xyz.entities.User;
 
+@Service
 public class StockServiceImpl implements StockService {
 	
 	@Autowired
