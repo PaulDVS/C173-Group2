@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -120,6 +121,21 @@ public class ShopController {
 		
 		modelAndView.addObject("items", listitem);
 		modelAndView.setViewName("ShopPage");
+		return modelAndView;
+	}
+	
+	@RequestMapping("/ViewItem")
+	public ModelAndView viewItemPage(@RequestBody Item item) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+//		//temporary, TODO fix implementation
+//		ItemType tempType = new ItemType("book", 12.5f);
+//		Item item = new Item(10, "item", tempType, 200, 23);
+//		//
+		
+		modelAndView.addObject("item", item);
+		modelAndView.setViewName("ItemPage");
+		
 		return modelAndView;
 	}
 	

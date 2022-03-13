@@ -6,11 +6,64 @@
 </head>
 <body>
 <h1>XYZ Retail Shopping Website</h1>
-<h2>Current Page Name</h2>
+<h2 style="">Viewing Item:
+	<strong th:text=${item.name}></strong>
+</h2>
+
+<p>
+	Price: 
+	<strong th:text="${item.price}"/>
+</p>
+
+<p>
+	Type: 
+	<strong th:text="${item.type.type}"/>
+</p>
+
+<p>
+	Tax Rate: 
+	<strong th:text="${item.type.taxRate}"/><strong>%</strong>
+</p>
+
+<p>
+	Quantity Available: 
+	<strong th:text="${item.quantity}"/>
+</p>
+
+<span>
+	Add to cart:
+	<br>
+	Quantity:
+	<input type="number" id="quantity" name="quantity" value="1" min="1" 
+	th:attr="max=${item.quantity}" size=1 oninput="this.size = this.value.length" autocomplete="off">
+	<button>Place in Cart</button>
+</span>
+
+
+
+
 <br><br>
 
 
+<!--
+<table>
+	<tr>
+		<th>Item Name</th>
+		<th>Item Type</th>
+		<th>Item Price</th>
+		<th>Item Tax</th>
+		<th>Item Quantity</th>
+	</tr>
+	<tr th:object ="${item}">
+		<td th:text ="${item.name}"></td>
+		<td th:text ="${item.type.type}"></td>
+		<td th:text ="${item.price}"></td>
+		<td th:text ="${item.price}"></td>
+		<td th:text ="${item.quantity}"></td>
+	</tr>
+</table>
+-->
 
-<a href="./StoreSelection">Go to Store Selection</a>
+<a href="./ShopPage">Back to <text th:text=${item.type.type}/> shop</a>
 </body>
 </html>
