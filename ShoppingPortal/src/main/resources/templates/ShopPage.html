@@ -18,7 +18,6 @@
 	<tr th:each ="item : {items}">
 		<td th:text ="${item.name}"></td>
 		<td th:text ="${item.price}"></td>
-		<td><form action="#" th:action="./itemView" method="post" th:object="${item}"><input type="submit" value = "Go"><>
 	</tr>
 </table>
 
