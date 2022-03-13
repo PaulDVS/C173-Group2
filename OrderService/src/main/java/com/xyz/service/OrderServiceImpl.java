@@ -47,31 +47,6 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderRecord removeBasketItemsFromOrder(int OrderId, BasketItems basketItems) {
-        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
-        if(!result.isEmpty()){
-            basketItems.getItems().forEach(basketItem -> {
-                BasketItem basketItemToRemove = basketItemDao.getById(basketItem.getBasketItemId());
-            	result.get().getItems().remove(basketItemToRemove);
-            });
-            return orderRecordDao.save(result.get());
-        }
-        return null;
-    }
-
-    @Override
-    public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) {
-        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
-        if(!result.isEmpty()){
-            basketItems.getItems().forEach(basketItem -> {
-            	result.get().getItems().add(basketItem);
-            });
-            return orderRecordDao.save(result.get());
-        }
-        return null;
-    }
-
-    @Override
     public OrderRecord confirmOrder(int OrderId) {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
         if(!result.isEmpty()){
@@ -83,21 +58,55 @@ public class OrderServiceImpl implements OrderService{
     }
 
 
-    // @Override
-    // public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) throws AddBasketItemException {
-    //     Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
-    //     if(!result.isEmpty()){
-    //     	if(!result.get().isCheckedOut()) {
-    //     		 basketItems.getItems().forEach(basketItem -> {
-    //                  result.get().getItems().add(basketItem);
-    //              });
-    //              return orderRecordDao.save(result.get());
-    //     	}else {
-    //     		throw new AddBasketItemException("The order has already been confirmd");
-    //     	}
-           
-    //     }
-    //     return null;
-    // }
+    @Override
+    public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) throws EditCheckedOutException {
+        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+        if(!result.isEmpty()){
+        	if(!result.get().isCheckedOut()) {
+        		 basketItems.getItems().forEach(basketItem -> {
+                     result.get().getItems().add(basketItem);
+                 });
+                 return orderRecordDao.save(result.get());
+        	}
+            else throw new EditCheckedOutException("The order has already been confirmed.");
+        }
+        return null;
+    }
+
+    @Override
+    public OrderRecord removeBasketItemsFromOrder(int OrderId, BasketItems basketItems) throws EditCheckedOutException {
+        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+        if(!result.isEmpty()){
+            if(!result.get().isCheckedOut()){
+                basketItems.getItems().forEach(basketItem -> {
+                    BasketItem basketItemToRemove = basketItemDao.getById(basketItem.getBasketItemId());
+                    result.get().getItems().remove(basketItemToRemove);
+                });
+                return orderRecordDao.save(result.get());
+            }
+            else throw new EditCheckedOutException("The order has already been confirmed.");
+        }
+        return null;
+    }
+
+    @Override
+    public List<OrderRecord> getAllCheckedOutOrder() {
+        return orderRecordDao.getAllCheckedOutOrder();
+    }
+
+    @Override
+    public List<OrderRecord> getAllUncheckedOutOrder() {
+        return orderRecordDao.getAllUncheckedOutOrder();
+    }
+
+    @Override
+    public List<OrderRecord> getAllCheckedOutOrderByEmail(String cEmail) {
+        return orderRecordDao.getAllCheckedOutOrderByEmail(cEmail);
+    }
+
+    @Override
+    public List<OrderRecord> getAllUncheckedOutOrderByEmail(String cEmail) {
+        return orderRecordDao.getAllUncheckedOutOrderByEmail(cEmail);
+    }
  
 }

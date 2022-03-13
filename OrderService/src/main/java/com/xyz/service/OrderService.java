@@ -11,22 +11,26 @@ public interface OrderService {
 
     public List<OrderRecord> getAllOrderRecords();
 
-    public String findCustomerEmailByOrderId(int orderId);
-
     public OrderRecord findOrderByOrderId(int orderId);
 
+    public String findCustomerEmailByOrderId(int orderId);
+
     public List<OrderRecord> findOrdersByCustomerEmail(String cEmail);
+
+    public List<OrderRecord> getAllCheckedOutOrder();
+
+    public List<OrderRecord> getAllUncheckedOutOrder();
+
+    public List<OrderRecord> getAllCheckedOutOrderByEmail(String cEmail);
+
+    public List<OrderRecord> getAllUncheckedOutOrderByEmail(String cEmail);
 
     public OrderRecord createOrderRecord(OrderRecord orderRecord);
 
 
-    // public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) throws AddBasketItemException;
+    public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) throws EditCheckedOutException;
 
-    public OrderRecord removeBasketItemsFromOrder(int OrderId, BasketItems basketItems);
-
-    public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems);
-
-    // public OrderRecord setBasketItemQuantityToOrder(int OrderId, BasketItem basketItem, int quantity);
+    public OrderRecord removeBasketItemsFromOrder(int OrderId, BasketItems basketItems) throws EditCheckedOutException;
 
     public OrderRecord confirmOrder(int OrderId);
 }
