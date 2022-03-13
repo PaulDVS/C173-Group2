@@ -27,17 +27,17 @@ public class BasketApi {
     @Autowired
 	private OrderService orderService;
 
-	@GetMapping(value="/Orders",produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/Orders", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<OrderRecord> viewItems() {
 		return orderService.getAllOrderRecords();
 	}
 
-	@GetMapping(value="/Orders/Confirmed",produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/Orders/Confirmed", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<OrderRecord> viewCheckedOutItems() {
 		return orderService.getAllCheckedOutOrder();
 	}
 
-	@GetMapping(value="/Orders/Unconfirmed",produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/Orders/Unconfirmed", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<OrderRecord> viewUnCheckedOutItems() {
 		return orderService.getAllUncheckedOutOrder();
 	}
@@ -47,7 +47,7 @@ public class BasketApi {
 		return orderService.getAllCheckedOutOrderByEmail(cEmail);
 	}
 
-	@GetMapping(value="/Orders/Unconfirmed/{cEmail}",produces=MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value="/Orders/Unconfirmed/{cEmail}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<OrderRecord> viewUnCheckedOutItemsById(@PathVariable String cEmail) {
 		return orderService.getAllUncheckedOutOrderByEmail(cEmail);
 	}

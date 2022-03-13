@@ -20,11 +20,11 @@ public interface OrderRecordDao extends JpaRepository<OrderRecord, Integer>{
 	// @Modifying
 
     // get customer Id (email) by Order Id
-    @Query("SELECT customerEmail FROM OrderRecord WHERE orderId=:oId")
+    @Query("SELECT customerEmail FROM OrderRecord WHERE orderId = :oId")
     public String findCustomerEmailByOrderId(@Param("oId") int orderId);
 
     // get Order Id by the customer email
-    @Query("FROM OrderRecord WHERE customerEmail =: cEmail")
+    @Query("FROM OrderRecord WHERE customerEmail = :cEmail")
     public List<OrderRecord> findOrderByCustomerEmail(@Param("cEmail") String cEmail);
 
     // get all checked out orders
@@ -36,10 +36,10 @@ public interface OrderRecordDao extends JpaRepository<OrderRecord, Integer>{
     public List<OrderRecord> getAllUncheckedOutOrder();
 
     // get all checkout orders by Customer Email
-    @Query("FROM OrderRecord WHERE checkedOut = 1 AND customerEmail =: cEmail")
+    @Query("FROM OrderRecord WHERE checkedOut = 1 AND customerEmail = :cEmail")
     public List<OrderRecord> getAllCheckedOutOrderByEmail(@Param("cEmail") String cEmail);
 
     // get all Un-checkout orders by Customer Email
-    @Query("FROM OrderRecord WHERE checkedOut = 0 AND customerEmail =: cEmail")
+    @Query("FROM OrderRecord WHERE checkedOut = 0 AND customerEmail = :cEmail")
     public List<OrderRecord> getAllUncheckedOutOrderByEmail(@Param("cEmail") String cEmail);
 }
