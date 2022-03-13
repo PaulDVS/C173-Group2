@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
+
 <title>XYZ Retail</title>
 </head>
 <body>
@@ -10,12 +10,13 @@
 <h2>Login Page</h2>
 <br>
 
-<h3 th:text="${message}"></h3>
+
 <br>
 <h3>Login Form:</h3>
-<form action="./Login" method="post">
-	Enter Username : <input type="text" name="userName"><br><br>
-	Enter Password : <input type="password" name="password"><br><br>
+<form action="./Login" method="post" th:object="${login}">
+	Enter User Name : <input type="text"  th:field="*{userName}"><br><br>
+	Enter Password : <input type="password"  th:field="*{Password}"><br><br>
+	Remember Me : <input type="checkbox"  th:field="*{rememberMe}"><br><br>
 	<input type="submit" value="Login">
 	<input type="submit" value="Register">
 </form>
