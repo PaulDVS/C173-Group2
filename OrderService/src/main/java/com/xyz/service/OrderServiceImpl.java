@@ -46,6 +46,7 @@ public class OrderServiceImpl implements OrderService{
         return orderRecordDao.save(orderRecord);
     }
 
+
     @Override
     public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) throws AddBasketItemException {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
@@ -75,6 +76,32 @@ public class OrderServiceImpl implements OrderService{
         }
         return null;
     }
+
+    // @Override
+    // public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) {
+    //     Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+    //     if(!result.isEmpty()){
+    //         basketItems.getListItems().forEach(basketItem -> {
+    //             result.get().getListItems().add(basketItem);
+    //         });
+    //         return orderRecordDao.save(result.get());
+    //     }
+    //     return null;
+    // }
+
+    // @Override
+    // public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems) {
+    //     Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+    //     if(!result.isEmpty()){
+    //         basketItems.getListItems().forEach(basketItem -> {
+    //             BasketItem basketItemToRemove = basketItemDao.getById(basketItem.getBasketItemId());
+    //         	result.get().getListItems().remove(basketItemToRemove);
+    //         });
+    //         return orderRecordDao.save(result.get());
+    //     }
+    //     return null;
+    // }
+
 
     @Override
     public OrderRecord confirmOrder(int OrderId) {

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +24,8 @@ public class BasketItem {
 
 	@Getter
 	@Setter
-	@Id 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private int basketItemId;
 
     @Getter
@@ -33,4 +35,10 @@ public class BasketItem {
     @Getter
 	@Setter
 	private int quantity;
+
+	@Getter
+	@Setter
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId")
+    private OrderRecord orderRecord;
 }

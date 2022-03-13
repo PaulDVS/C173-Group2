@@ -19,7 +19,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "orderRecord")
+@Table(name = "OrderRecord")
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -27,6 +27,7 @@ public class OrderRecord{
 
 	@Getter
 	@Setter
+
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;
@@ -39,7 +40,7 @@ public class OrderRecord{
 	@Setter
 	private boolean checkedOut;
 
-	@OneToMany(cascade = CascadeType.ALL , orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderRecord")
 	@Getter
 	@Setter
   	private List<BasketItem> items;
