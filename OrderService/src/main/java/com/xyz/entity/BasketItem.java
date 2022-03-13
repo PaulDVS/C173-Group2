@@ -36,9 +36,9 @@ public class BasketItem {
 	@Setter
 	private int quantity;
 
-	@Getter
-	@Setter
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orderId")
-    private OrderRecord orderRecord;
+	// @Getter
+	// @Setter
+	// @ManyToOne(fetch = FetchType.LAZY)
+    // @JoinColumn(name = "orderId")
+    // private OrderRecord orderRecord;
 }
