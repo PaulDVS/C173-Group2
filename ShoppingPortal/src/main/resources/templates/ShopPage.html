@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlsns:th="https://thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>XYZ Retail</title>
+</head>
+<body>
+<h1>XYZ Retail Shopping Website</h1>
+<h2>Current Page Name</h2>
+<br><br>
+
+<table border ="0">
+	<tr>
+		<th>Item Name</th>
+		<th>Item Price</th>
+		<th>Go to webpage</th>
+	</tr>
+	<tr th:each ="item : ${items}">
+		<td th:text ="${item.name}"></td>
+		<td th:text ="${item.price}"></td>
+	</tr>
+</table>
+
+
+<a href="./StoreSelection">Go to Store Selection</a>
+</body>
+</html>
