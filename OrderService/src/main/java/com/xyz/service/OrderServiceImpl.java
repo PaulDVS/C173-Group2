@@ -81,26 +81,21 @@ public class OrderServiceImpl implements OrderService{
     // public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) {
     //     Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
     //     if(!result.isEmpty()){
-    //         basketItems.getListItems().forEach(basketItem -> {
-    //             result.get().getListItems().add(basketItem);
+    //         basketItems.getItems().forEach(basketItem -> {
+    //             Optional<BasketItem> item = basketItemDao.findById(basketItem.getBasketItemId());
+    //             if(!item.isEmpty()){
+
+    //             }
+    //             else{
+    //                 basketItemDao.save(item.get());
+    //                 // result.get().getItems().add(item.get());
+    //             }  
     //         });
     //         return orderRecordDao.save(result.get());
     //     }
     //     return null;
     // }
 
-    // @Override
-    // public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems) {
-    //     Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
-    //     if(!result.isEmpty()){
-    //         basketItems.getListItems().forEach(basketItem -> {
-    //             BasketItem basketItemToRemove = basketItemDao.getById(basketItem.getBasketItemId());
-    //         	result.get().getListItems().remove(basketItemToRemove);
-    //         });
-    //         return orderRecordDao.save(result.get());
-    //     }
-    //     return null;
-    // }
 
 
     @Override

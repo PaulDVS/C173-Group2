@@ -9,12 +9,8 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class AddBasketItemException extends Exception {
-	
 	@Getter
 	@Setter
 	private String message;
-	
-
 }

@@ -9,6 +9,7 @@ import com.xyz.entities.ItemType;
 import com.xyz.entities.Items;
 import com.xyz.entities.StockItem;
 import com.xyz.entities.User;
+
 @Service
 public class StockServiceImpl implements StockService {
 	
