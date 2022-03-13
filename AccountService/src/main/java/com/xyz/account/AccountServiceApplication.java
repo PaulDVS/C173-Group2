@@ -34,11 +34,11 @@ public class AccountServiceApplication implements CommandLineRunner  {
 		User user5 = new User("Suraiya@Wiley.com", "0800 000 0005", "12 High Street", "Suraiya", "password");
 		
 		
-		userDao.save(user1);
-		userDao.save(user2);
-		userDao.save(user3);
-		userDao.save(user4);
-		userDao.save(user5);
+	//	userDao.save(user1);
+//		userDao.save(user2);
+//		userDao.save(user3);
+//		userDao.save(user4);
+//		userDao.save(user5);
 		
 	}
 }

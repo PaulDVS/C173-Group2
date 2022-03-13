@@ -39,7 +39,10 @@ public class StockServiceImpl implements StockService {
 
 	@Override
 	public int getStockQuantityById(int itemId) {
-		return restTemplate.getForObject("http://localhost:8081/Items/Quantity/" + itemId, Integer.class);
+		
+		int result = restTemplate.getForObject("http://localhost:8081/Items/Quantity/" + itemId, Integer.class);
+	
+	return result;
 	}
 
 	@Override

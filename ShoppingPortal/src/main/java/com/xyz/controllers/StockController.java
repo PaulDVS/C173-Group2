@@ -25,7 +25,7 @@ public class StockController {
 	@Autowired
 	StockService stockServiceImpl;
 	
-	@RequestMapping(value="/getStockTypes", method=RequestMethod.GET)
+	@RequestMapping(value="/Items/getStockTypes", method=RequestMethod.GET)
 	public ModelAndView getStockTypesController() {
 		ModelAndView modelAndView = new ModelAndView();
 		//ItemTypes types = stockServiceImpl.get();   //TODO
@@ -33,26 +33,38 @@ public class StockController {
 		
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/getStockOfType", method=RequestMethod.GET)
-	public ModelAndView getStockOfType(@RequestParam("stockType") ItemType type) {
+	@RequestMapping(value="/Items/All", method=RequestMethod.GET)
+	public ModelAndView getAllStockItems() {
 		ModelAndView modelAndView = new ModelAndView();
-		Items items = stockServiceImpl.getItemsByType(type);
-	    modelAndView.addObject("items", items);
+		Items items = stockServiceImpl.getAllItems();
+	    modelAndView.setViewName("Items");
+		modelAndView.addObject("items", items.getItems());
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/getStockQuantityById/{id}", method=RequestMethod.GET)
+	
+	@RequestMapping(value="/Items/getStockOfType", method=RequestMethod.GET)
+	public ModelAndView getStockOfType(@RequestParam("stockType") ItemType type) {
+		ModelAndView modelAndView = new ModelAndView();
+		Items items = stockServiceImpl.getItemsByType(type);
+	    modelAndView.setViewName("Items");
+		modelAndView.addObject("items", items);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/Items/getStockQuantityById/{id}", method=RequestMethod.GET)
 	public ModelAndView getStockQuantityById(@PathVariable("id") int id) {
+		System.out.println("We are in the ");
 		ModelAndView modelAndView = new ModelAndView();
 		int quantity = stockServiceImpl.getStockQuantityById(id);
 		modelAndView.addObject("id", id);
 		modelAndView.addObject("quantity", quantity);
+		modelAndView.setViewName("Items");
 		
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/setStockQuantityById", method=RequestMethod.PUT)
+	@RequestMapping(value="/Items/setStockQuantityById", method=RequestMethod.PUT)
 	public ModelAndView setStockQuantityById(@RequestBody StockItem item) {
 		ModelAndView modelAndView = new ModelAndView();
 		stockServiceImpl.setStockQuantityById(item);
@@ -61,7 +73,7 @@ public class StockController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/getStockPriceById/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/Items/getStockPriceById/{id}", method=RequestMethod.GET)
 	public ModelAndView getStockPriceById(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();
 		float price = stockServiceImpl.getPriceById(id);
@@ -71,7 +83,7 @@ public class StockController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/getStockTaxByType", method=RequestMethod.GET)
+	@RequestMapping(value="/Items/getStockTaxByType", method=RequestMethod.GET)
 	public ModelAndView getStockTaxByType(@RequestParam("stockType") String type) {
 		ModelAndView modelAndView = new ModelAndView();
 		//float taxRate = stockServiceImpl.get(type);
@@ -79,7 +91,7 @@ public class StockController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/searchStockById/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/Items/searchStockById/{id}", method=RequestMethod.GET)
 	public ModelAndView searchStockController(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("id", id);
