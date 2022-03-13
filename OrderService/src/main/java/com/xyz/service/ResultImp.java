@@ -15,8 +15,4 @@ public class ResultImp<T> {
 	@Setter
 	private T object;
 	
-	
-
-
-
 }
