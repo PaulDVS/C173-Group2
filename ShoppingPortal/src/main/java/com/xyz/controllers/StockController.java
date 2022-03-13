@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xyz.entities.Item;
+import com.xyz.entities.ItemType;
+import com.xyz.entities.Items;
+import com.xyz.entities.StockItem;
 import com.xyz.service.StockService;
 import com.xyz.service.StockServiceImpl;
 
@@ -24,37 +28,35 @@ public class StockController {
 	@RequestMapping(value="/getStockTypes", method=RequestMethod.GET)
 	public ModelAndView getStockTypesController() {
 		ModelAndView modelAndView = new ModelAndView();
-		//ItemTypes types = itemTypeService.getAllTypes();
+		//ItemTypes types = stockServiceImpl.get();   //TODO
 		//modelAndView.addObject("types", types);
 		
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/getStockOfType", method=RequestMethod.GET)
-	public ModelAndView getStockOfType() {//@RequestParam("stockType") ItemType type) {
+	public ModelAndView getStockOfType(@RequestParam("stockType") ItemType type) {
 		ModelAndView modelAndView = new ModelAndView();
-		//Items items = itemService.getItemsByType(type);
-		//modelAndView.addObject("items", items);
+		Items items = stockServiceImpl.getItemsByType(type);
+	    modelAndView.addObject("items", items);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/getStockQuantityById/{id}", method=RequestMethod.GET)
 	public ModelAndView getStockQuantityById(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();
-		//int quantity = itemService.getStockQuantityById(id);
+		int quantity = stockServiceImpl.getStockQuantityById(id);
 		modelAndView.addObject("id", id);
-		//modelAndView.addObject("quantity", quantity);
+		modelAndView.addObject("quantity", quantity);
 		
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/setStockQuantityById/{id}/{quantity}", method=RequestMethod.POST)
-	public ModelAndView setStockQuantityById(@PathVariable("id") int id) {
+	@RequestMapping(value="/setStockQuantityById", method=RequestMethod.PUT)
+	public ModelAndView setStockQuantityById(@RequestBody StockItem item) {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("id", id);
-		//itemService
-		
-		//todo
+		stockServiceImpl.setStockQuantityById(item);
+		modelAndView.addObject("item", item);
 		
 		return modelAndView;
 	}
@@ -62,9 +64,9 @@ public class StockController {
 	@RequestMapping(value="/getStockPriceById/{id}", method=RequestMethod.GET)
 	public ModelAndView getStockPriceById(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();
-		//float price = itemService.getPriceById(id);
+		float price = stockServiceImpl.getPriceById(id);
 		modelAndView.addObject("id", id);
-		//modelAndView.addObject("price", price);
+		modelAndView.addObject("price", price);
 		
 		return modelAndView;
 	}
@@ -72,8 +74,8 @@ public class StockController {
 	@RequestMapping(value="/getStockTaxByType", method=RequestMethod.GET)
 	public ModelAndView getStockTaxByType(@RequestParam("stockType") String type) {
 		ModelAndView modelAndView = new ModelAndView();
-		//float taxRate = itemTypeService.getTaxtRate(type);
-		//modelAndView.addObject("taxRate", taxRate);
+		//float taxRate = stockServiceImpl.get(type);
+		//modelAndView.addObject("taxRate", taxRate);    /// TODO
 		return modelAndView;
 	}
 	
@@ -81,12 +83,12 @@ public class StockController {
 	public ModelAndView searchStockController(@PathVariable("id") int id) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("id", id);
-		//Item item = itemService.getItemById(id);
-		if(true){//item == null) {
+		Item item = stockServiceImpl.getItemById(id);
+		if(item == null) {
 			modelAndView.addObject("exists", false);
 		} else {
 			modelAndView.addObject("exists", true);
-			//modelAndView.addObject("item", item);
+			modelAndView.addObject("item", item);
 		}
 		
 		return modelAndView;
