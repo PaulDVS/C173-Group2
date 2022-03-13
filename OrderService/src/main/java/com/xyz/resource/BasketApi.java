@@ -1,6 +1,7 @@
 package com.xyz.resource;
 
 import com.xyz.entity.OrderRecord;
+import com.xyz.entity.OrderRecords;
 import com.xyz.service.EditCheckedOutException;
 import com.xyz.service.OrderService;
 import com.xyz.service.ResultImp;
@@ -43,13 +44,13 @@ public class BasketApi {
 	}
 
 	@GetMapping(value="/Orders/Confirmed/{cEmail}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<OrderRecord> viewCheckedOutItemsById(@PathVariable String cEmail) {
-		return orderService.getAllCheckedOutOrderByEmail(cEmail);
+	public OrderRecords viewCheckedOutItemsById(@PathVariable String cEmail) {
+		return new OrderRecords(orderService.getAllCheckedOutOrderByEmail(cEmail));
 	}
 
 	@GetMapping(value="/Orders/Unconfirmed/{cEmail}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public List<OrderRecord> viewUnCheckedOutItemsById(@PathVariable String cEmail) {
-		return orderService.getAllUncheckedOutOrderByEmail(cEmail);
+	public OrderRecords viewUnCheckedOutItemsById(@PathVariable String cEmail) {
+		return new OrderRecords(orderService.getAllUncheckedOutOrderByEmail(cEmail));
 	}
 
 	@PostMapping(value="Orders/Create",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)

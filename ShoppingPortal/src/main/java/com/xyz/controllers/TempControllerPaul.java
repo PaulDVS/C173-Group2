@@ -22,48 +22,23 @@ import com.xyz.entities.Items;
 import com.xyz.entities.User;
 import com.xyz.exception.UserCreationError;
 import com.xyz.service.AccountService;
+import com.xyz.service.OrderService;
 
 @Controller
 public class TempControllerPaul {
 	@Autowired
-	AccountService accountService;
+	OrderService orderService;
 
 	
+	//Loads in the user basket of items using the email of the current user in session.
 	@RequestMapping("/ViewCart")
 	public ModelAndView viewShopTest(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BasketItemFull> basketItemsFull = new ArrayList();
-		BasketItemFull currentItem;
 		
-		int id;
-		String name;
-		int quantity;
-		float price;
-		float tax;
-		float finalPrice;
+		User user = (User) session.getAttribute("currentUser");
 		
-		//#Get basket from session
-		
-		
-		
-		//Get local cart and sets up a BasketItemFull object for each basket item
-//		for() { //#For each item in basket
-//			currentItem = new BasketItemFull();
-//			//#Add item data
-//			
-//			finalPrice = (quantity*price) * (tax/100);
-//			currentItem = new BasketItemFull();
-//			basketItemsFull.add(currentItem);
-//		}
-		
-		
-		
-		// Temp set up
-		BasketItemFull item1 = new BasketItemFull(1, "CD1", 10, 15, 10, 165);
-		BasketItemFull item2 = new BasketItemFull(2, "Book1", 10, 8, 5, 84);
-		basketItemsFull.add(item1);
-		basketItemsFull.add(item2);
-		//
+		basketItemsFull = orderService.showCart(user.getCustomerEmail());
 		
 		modelAndView.addObject("basketItemsFull", basketItemsFull);
 		modelAndView.setViewName("Cart");
