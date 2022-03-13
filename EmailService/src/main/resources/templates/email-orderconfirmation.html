@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeeaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:remove="all">Template for HTML email </title>
+
+</head>
+
+<body>
+<h1> Order Confirmed </h1>
+<!-- <img th:src="@{/images/XYZ-Retail-Logo.png}" />  -->
+
+
+<!-- /resources/images/XYZ-Retail-Logo.png -->
+<img src="../images/XYZ-Retail-Logo.png" width="250"
+             th:src="@{/images/XYZ-Retail-Logo.png}"/> 
+
+<p th:text ="#{greeting(${name})}">
+
+Hello, 
+</p>
+<p>
+Thank you for placing your order with XYZ retail. 
+Your order is going to delivered to the following address:
+"........."
+
+<br>
+Order number:  
+</br>
+<br>
+Order date: 
+</br>
+<br>
+
+Thank you, 
+</br>
+<br>
+XYZ Retail
+</br>
+</p> 
+
+</body>
+</html>
