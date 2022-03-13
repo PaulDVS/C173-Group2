@@ -10,3 +10,7 @@ Suraiya:
 Mohsen:
   StockService: Designed and implemented Excepet setQuantity method.
   OrderService: helped with debuging the Add OrderRecords and Add basketItems methods.
+
+Colman:
+  OrderService: POJO classes, RestAPI, Services, Application.Properties setting, designed and implemented by Colman.
+
