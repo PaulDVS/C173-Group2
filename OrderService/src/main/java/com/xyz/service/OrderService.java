@@ -26,9 +26,6 @@ public interface OrderService {
 
     // public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems);
 
-    // public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems);
-
-
     // public OrderRecord setBasketItemQuantityToOrder(int OrderId, BasketItem basketItem, int quantity);
 
     public OrderRecord confirmOrder(int OrderId);
