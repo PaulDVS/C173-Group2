@@ -34,18 +34,18 @@ public class BasketApi {
 		return orderService.createOrderRecord(orderRecord);
 	}
 
-    @PostMapping(value="Orders/Add/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public OrderRecord addItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
-		return orderService.addBasketItemsToOrder(orderId, basketItems);
-	}
+    // @PostMapping(value="Orders/Add/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	// public OrderRecord addItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
+	// 	return orderService.addBasketItemsToOrder(orderId, basketItems);
+	// }
 
-    @DeleteMapping(value="Orders/Remove/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public OrderRecord removeItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
-		return orderService.removeBasketItemsToOrder(orderId, basketItems);
-	}
+    // @DeleteMapping(value="Orders/Remove/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	// public OrderRecord removeItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
+	// 	return orderService.removeBasketItemsToOrder(orderId, basketItems);
+	// }
 
 	@PutMapping(value="Orders/Confirm/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE)
-	public void confirmOrder(@PathVariable int orderId) {
-		orderService.confirmOrder(orderId);
+	public OrderRecord confirmOrder(@PathVariable int orderId) {
+		return orderService.confirmOrder(orderId);
 	}
 }
