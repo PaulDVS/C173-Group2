@@ -12,5 +12,5 @@ import lombok.Setter;
 public class BasketItems {
     @Getter
 	@Setter
-	private List<BasketItem> listItems;
+	private List<BasketItem> items;
 }

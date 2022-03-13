@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "basketItem")
+@Table(name = "BasketItem")
 @AllArgsConstructor
 @NoArgsConstructor
 public class BasketItem {
 
 	@Getter
 	@Setter
-	@Id @GeneratedValue
+	@Id 
 	private int basketItemId;
 
     @Getter

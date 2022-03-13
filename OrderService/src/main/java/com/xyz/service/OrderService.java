@@ -19,9 +19,9 @@ public interface OrderService {
 
     public OrderRecord createOrderRecord(OrderRecord orderRecord);
 
-    public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems);
+    public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) throws AddBasketItemException;
 
-    public OrderRecord removeBasketItemsToOrder(int OrderId, BasketItems basketItems);
+    public OrderRecord removeBasketItemsFromOrder(int OrderId, BasketItems basketItems);
 
     // public OrderRecord setBasketItemQuantityToOrder(int OrderId, BasketItem basketItem, int quantity);
 

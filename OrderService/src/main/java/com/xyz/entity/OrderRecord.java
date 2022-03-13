@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,11 +23,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class OrderRecord {
+public class OrderRecord{
 
 	@Getter
 	@Setter
-	@Id @GeneratedValue
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;
 
 	@Getter
@@ -40,5 +42,6 @@ public class OrderRecord {
 	@OneToMany(cascade = CascadeType.ALL , orphanRemoval = true)
 	@Getter
 	@Setter
-  	private List<BasketItem> listItems;
+  	private List<BasketItem> items;
 }
+	
