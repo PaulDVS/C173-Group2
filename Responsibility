@@ -6,3 +6,7 @@ Paul:
 Suraiya: 
   EmailService
   Design the web pages 
+
+Mohsen:
+  StockService: Designed and implemented Excepet setQuantity method.
+  OrderService: helped with debuging the Add OrderRecords and Add basketItems methods.
