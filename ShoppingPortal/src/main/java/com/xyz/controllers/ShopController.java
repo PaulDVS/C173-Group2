@@ -103,7 +103,7 @@ public class ShopController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("./ViewShop")
+	@RequestMapping("/ViewShop")
 	public ModelAndView viewShopTest() {
 		ModelAndView modelAndView = new ModelAndView();
 		ItemType itemType1 = new ItemType("Books", 0);
@@ -117,14 +117,13 @@ public class ShopController {
 		listitem.add(item02);
 		listitem.add(item03);
 		
-		Items currentItems = new Items(listitem);
 		
-		modelAndView.addObject("items", currentItems);
+		modelAndView.addObject("items", listitem);
 		modelAndView.setViewName("ShopPage");
 		return modelAndView;
 	}
 	
-	@RequestMapping("./itemView")
+	@RequestMapping("/itemView")
 	public void viewShopTest2(@ModelAttribute("item") Items currentItem) {
 		System.out.println(currentItem);
 	}

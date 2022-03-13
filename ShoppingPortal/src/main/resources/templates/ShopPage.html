@@ -15,7 +15,7 @@
 		<th>Item Price</th>
 		<th>Go to webpage</th>
 	</tr>
-	<tr th:each ="item : {items}">
+	<tr th:each ="item : ${items}">
 		<td th:text ="${item.name}"></td>
 		<td th:text ="${item.price}"></td>
 	</tr>
