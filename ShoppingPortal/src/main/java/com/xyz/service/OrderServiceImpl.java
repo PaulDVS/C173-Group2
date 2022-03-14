@@ -36,25 +36,28 @@ public class OrderServiceImpl implements OrderService{
 		Item currentItem;
 		
 		OrderRecords currentOrdersList =  restTemplate.getForObject("http://localhost:8082/Orders/Unconfirmed/"+currentUserEmail, OrderRecords.class);
-		//There should only be one OrderRecord, but a list is returned in case something went wrong
-		//It is assumed the first record is the correct OrderRecord
-		OrderRecord currentOrders = currentOrdersList.getOrderRecordList().get(0);
 		
-		//Creates A BasketItemFull object for each normal basketItem and loads it into the list
-		for(BasketItem basketItem : currentOrders.getItems()) {
-			id = basketItem.getBasketItemId();
-			quantity = basketItem.getQuantity();
-			
-			currentItem = restTemplate.getForObject("http://localhost:8081/Items/Id/"+basketItem.getItemId(), Item.class);
-			
-			name = currentItem.getName();
-			price = currentItem.getPrice();
-			tax = currentItem.getType().getTaxRate();
-			
-			finalPrice = (quantity*price) + ((quantity*price)*(tax/100));
-			
-			currentBasketItem = new BasketItemFull(id, name, quantity, price, tax, finalPrice);
-			basketItemsFull.add(currentBasketItem);
+		if(!currentOrdersList.getOrderRecordList().isEmpty()) {
+			//There should only be one OrderRecord, but a list is returned in case something went wrong
+			//It is assumed the first record is the correct OrderRecord
+			OrderRecord currentOrders = currentOrdersList.getOrderRecordList().get(0);
+			//Creates A BasketItemFull object for each normal basketItem and loads it into the list
+			for(BasketItem basketItem : currentOrders.getItems()) {
+				id = basketItem.getBasketItemId();
+				quantity = basketItem.getQuantity();
+				
+				currentItem = restTemplate.getForObject("http://localhost:8081/Items/Id/"+basketItem.getItemId(), Item.class);
+	
+				
+				name = currentItem.getName();
+				price = currentItem.getPrice();
+				tax = currentItem.getType().getTaxRate();
+				
+				finalPrice = (quantity*price) + ((quantity*price)*(tax/100));
+				
+				currentBasketItem = new BasketItemFull(id, name, quantity, price, tax, finalPrice);
+				basketItemsFull.add(currentBasketItem);
+			}
 		}
 				
 		return basketItemsFull;
