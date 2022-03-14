@@ -30,11 +30,11 @@ public class ShopController {
 	
 	//Homepage, takes the user to the Login/Register webpage.
 	@RequestMapping("/")
-	public ModelAndView getMainPageController() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("message", "Hello and welcome to our site.");
-		modelAndView.setViewName("Login");
-		return modelAndView;
+	public String getMainPageController() {
+	//	ModelAndView modelAndView = new ModelAndView();
+	//	modelAndView.addObject("message", "Hello and welcome to our site.");
+	//	modelAndView.setViewName("Login");
+		return "static/index.html";
 	}
 	
 	//Attempt to login using a username and password
