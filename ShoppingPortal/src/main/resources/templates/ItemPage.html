@@ -37,6 +37,14 @@
 	<input type="number" id="quantity" name="quantity" value="1" min="1" 
 	th:attr="max=${item.quantity}" size=1 oninput="this.size = this.value.length" autocomplete="off">
 	<button>Place in Cart</button>
+	
+	<form action="./AddItem" method="post">
+		<input type="number" id="quantity" name="inputQuantity" value="1" min="1" 
+		th:attr="max=${item.quantity}" size=1 oninput="this.size = this.value.length" autocomplete="off">
+		<input type = "hidden" th:value="${item.itemId}" name="itemId">
+		<button type ="submit">Add</button>
+	</form>
+	
 </span>
 
 
