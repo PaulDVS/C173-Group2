@@ -73,7 +73,7 @@ public class OrderServiceImpl implements OrderService{
 		return null;
 	}
 
-	/*String currentUserEmail, int basketItemId*/
+
 	@Override
 	public String removeItem(String currentUserEmail, int basketItemId) {
 		

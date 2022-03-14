@@ -41,17 +41,26 @@ public class TempControllerPaul {
 		
 		basketItemsFull = orderService.showCart(user.getCustomerEmail());
 		
-		System.out.println(basketItemsFull);
 		modelAndView.addObject("basketItemsFull", basketItemsFull);
 		modelAndView.setViewName("Cart");
 		return modelAndView;
 	}
 	
 	@RequestMapping("/RemoveItem")
-	public void removeCartItem(@ModelAttribute("basketItemId") int basketItemId, HttpSession session) {
+	public ModelAndView removeCartItem(@ModelAttribute("basketItemId") int basketItemId, HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		List<BasketItemFull> basketItemsFull = new ArrayList();
+		
 		User user = (User) session.getAttribute("currentUser"); 
+		//Removes item from cart
 		String message = orderService.removeItem(user.getCustomerEmail(), basketItemId);
 		System.out.println(message);
+		
+		//Reloads basketItems into cart
+		basketItemsFull = orderService.showCart(user.getCustomerEmail());
+		modelAndView.addObject("basketItemsFull", basketItemsFull);
+		modelAndView.setViewName("Cart");
+		return modelAndView;
 	}
 	
 	

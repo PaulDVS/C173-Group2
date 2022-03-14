@@ -17,6 +17,7 @@
 		<th>Item Price</th>
 		<th>Item Tax</th>
 		<th>Final Price</th>
+		<th>Remove Item</th>
 	</tr>
 	<tbody th:if="${not #lists.isEmpty(basketItemsFull)}">
 		<tr th:each ="basketItemFull : ${basketItemsFull}">
@@ -25,6 +26,12 @@
 			<td th:text ="${basketItemFull.basketItemPrice}"></td>
 			<td th:text ="${basketItemFull.basketItemTax}"></td>
 			<td th:text ="${basketItemFull.basketItemFinalPrice}"></td>
+			<td>
+				<form action="./RemoveItem" method="post">
+					<input type = "hidden" th:value="${basketItemFull.basketItemId}" name="basketItemId">
+					<button type ="submit">Remove</button>
+				</form>
+			</td>
 		</tr>
 	</tbody>
 </table>
