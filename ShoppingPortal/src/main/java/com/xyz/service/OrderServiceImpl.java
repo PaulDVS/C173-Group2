@@ -77,8 +77,6 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public String removeItem(String currentUserEmail, int basketItemId) {
 		
-		BasketItem deleteBasketItem;
-		
 		OrderRecords currentOrdersList =  restTemplate.getForObject("http://localhost:8082/Orders/Unconfirmed/"+currentUserEmail, OrderRecords.class);
 		OrderRecord currentOrders = currentOrdersList.getOrderRecordList().get(0);
 
@@ -88,6 +86,17 @@ public class OrderServiceImpl implements OrderService{
 		ResultImp<OrderRecord> result = restTemplate.exchange("http://localhost:8082/Orders/Items/Remove/"+currentOrders.getOrderId()+"/"+basketItemId, HttpMethod.DELETE, entity, ResultImp.class).getBody();
 		
 		return result.getMessage();
+	}
+
+	@Override
+	public void confirmOrder(String currentUserEmail) {
+		OrderRecords currentOrdersList = restTemplate.getForObject("http://localhost:8082/Orders/Unconfirmed/"+currentUserEmail, OrderRecords.class);
+		if(!currentOrdersList.getOrderRecordList().isEmpty()) {
+			OrderRecord currentOrders = currentOrdersList.getOrderRecordList().get(0);
+			int orderID = currentOrders.getOrderId();
+			
+			restTemplate.put("http://localhost:8082/Orders/Confirm/"+orderID, null);
+		}
 	}
 
 }
