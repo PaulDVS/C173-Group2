@@ -37,9 +37,11 @@ public class TempControllerPaul {
 		List<BasketItemFull> basketItemsFull = new ArrayList();
 		
 		User user = (User) session.getAttribute("currentUser");
+		System.out.println(user);
 		
 		basketItemsFull = orderService.showCart(user.getCustomerEmail());
 		
+		System.out.println(basketItemsFull);
 		modelAndView.addObject("basketItemsFull", basketItemsFull);
 		modelAndView.setViewName("Cart");
 		return modelAndView;

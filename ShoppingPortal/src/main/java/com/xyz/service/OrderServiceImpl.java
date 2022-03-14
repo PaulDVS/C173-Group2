@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService{
 			id = basketItem.getBasketItemId();
 			quantity = basketItem.getQuantity();
 			
-			currentItem = restTemplate.getForObject("http://localhost:8081/Id/"+basketItem.getItemId(), Item.class);
+			currentItem = restTemplate.getForObject("http://localhost:8081/Items/Id/"+basketItem.getItemId(), Item.class);
 			
 			name = currentItem.getName();
 			price = currentItem.getPrice();
