@@ -6,10 +6,33 @@
 </head>
 <body>
 <h1>XYZ Retail Shopping Website</h1>
-<h2>Current Page Name</h2>
+<h2>My Cart</h2>
 <br><br>
 
+<h3>Cart Contents</h3>
+<table border ="1">
+	<tr>
+		<th>Item Name</th>
+		<th>Quantity in Cart</th>
+		<th>Item Price</th>
+		<th>Item Tax</th>
+		<th>Final Price</th>
+	</tr>
+	<tbody th:if="${not #lists.isEmpty(basketItemsFull)}">
+		<tr th:each ="basketItemFull : ${basketItemsFull}">
+			<td th:text ="${basketItemFull.basketItemName}"></td>
+			<td th:text ="${basketItemFull.basketItemQuantity}"></td>
+			<td th:text ="${basketItemFull.basketItemPrice}"></td>
+			<td th:text ="${basketItemFull.basketItemTax}"></td>
+			<td th:text ="${basketItemFull.basketItemFinalPrice}"></td>
+		</tr>
+	</tbody>
+</table>
 
+
+<br><br>
 <a href="./StoreSelection">Go to Store Selection</a>
+<br>
+<a href="./Checkout">Checkout</a>
 </body>
 </html>
