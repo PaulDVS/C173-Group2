@@ -63,10 +63,10 @@ public class OrderServiceImpl implements OrderService{
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
         if(!result.isEmpty()){
         	if(!result.get().isCheckedOut()) {
-        		 basketItems.getItems().forEach(basketItem -> {
-                     result.get().getItems().add(basketItem);
-                 });
-                 return orderRecordDao.save(result.get());
+        		basketItems.getItems().forEach(basketItem -> {
+                    result.get().getItems().add(basketItem);
+                });
+                return orderRecordDao.save(result.get());
         	}
             else throw new EditCheckedOutException("The order has already been confirmed.");
         }
@@ -81,6 +81,7 @@ public class OrderServiceImpl implements OrderService{
                 basketItemIds.forEach(basketItemId -> {
                     BasketItem basketItemToRemove = basketItemDao.getById(basketItemId);
                     result.get().getItems().remove(basketItemToRemove);
+                    basketItemDao.delete(basketItemToRemove);
                 });
                 return orderRecordDao.save(result.get());
             }
