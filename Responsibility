@@ -14,3 +14,9 @@ Mohsen:
 Colman:
   OrderService: POJO classes, RestAPI, Services, Application.Properties setting, design and implemention.
 
+Jozef:
+  Item Service: Contributed a method.
+  Stock Service: Partially written.
+  Stock Controller: Implemented class.
+  ItemPage.html: Wrote page.
+
