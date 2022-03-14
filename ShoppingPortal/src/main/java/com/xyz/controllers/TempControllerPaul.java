@@ -72,8 +72,6 @@ public class TempControllerPaul {
 		
 		User user = (User) session.getAttribute("currentUser"); 
 		
-	
-		
 		//Loading data into page
 		basketItemsFull = orderService.showCart(user.getCustomerEmail());
 		modelAndView.addObject("basketItemsFull", basketItemsFull);
