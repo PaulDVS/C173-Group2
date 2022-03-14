@@ -7,5 +7,5 @@ import com.xyz.entities.BasketItemFull;
 public interface OrderService {
 	public List<BasketItemFull> showCart(String currentUserEmail);
 	public String addItem();
-	public String removeItem();
+	public String removeItem(String currentUserEmail, int basketItemId);
 }

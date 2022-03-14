@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,6 +15,7 @@ import com.xyz.entities.BasketItemFull;
 import com.xyz.entities.Item;
 import com.xyz.entities.OrderRecord;
 import com.xyz.entities.OrderRecords;
+import com.xyz.entities.ResultImp;
 
 @Service
 public class OrderServiceImpl implements OrderService{
@@ -69,10 +73,21 @@ public class OrderServiceImpl implements OrderService{
 		return null;
 	}
 
+	/*String currentUserEmail, int basketItemId*/
 	@Override
-	public String removeItem() {
-		// TODO Auto-generated method stub
-		return null;
+	public String removeItem(String currentUserEmail, int basketItemId) {
+		
+		BasketItem deleteBasketItem;
+		
+		OrderRecords currentOrdersList =  restTemplate.getForObject("http://localhost:8082/Orders/Unconfirmed/"+currentUserEmail, OrderRecords.class);
+		OrderRecord currentOrders = currentOrdersList.getOrderRecordList().get(0);
+
+		HttpHeaders header = new HttpHeaders();
+		HttpEntity<OrderRecord> entity = new HttpEntity<OrderRecord>(header);
+
+		ResultImp<OrderRecord> result = restTemplate.exchange("http://localhost:8082/Orders/Items/Remove/"+currentOrders.getOrderId()+"/"+basketItemId, HttpMethod.DELETE, entity, ResultImp.class).getBody();
+		
+		return result.getMessage();
 	}
 
 }

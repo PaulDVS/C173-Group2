@@ -32,7 +32,7 @@ public class TempControllerPaul {
 	
 	//Loads in the user basket of items using the email of the current user in session.
 	@RequestMapping("/ViewCart")
-	public ModelAndView viewShopTest(HttpSession session) {
+	public ModelAndView viewCart(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BasketItemFull> basketItemsFull = new ArrayList();
 		
@@ -45,6 +45,13 @@ public class TempControllerPaul {
 		modelAndView.addObject("basketItemsFull", basketItemsFull);
 		modelAndView.setViewName("Cart");
 		return modelAndView;
+	}
+	
+	@RequestMapping("/RemoveItem")
+	public void removeCartItem(@ModelAttribute("basketItemId") int basketItemId, HttpSession session) {
+		User user = (User) session.getAttribute("currentUser"); 
+		String message = orderService.removeItem(user.getCustomerEmail(), basketItemId);
+		System.out.println(message);
 	}
 	
 	
