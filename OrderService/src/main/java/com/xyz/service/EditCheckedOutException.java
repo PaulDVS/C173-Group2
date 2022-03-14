@@ -1,7 +1,5 @@
 package com.xyz.service;
 
-import org.aspectj.apache.bcel.ExceptionConstants;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
