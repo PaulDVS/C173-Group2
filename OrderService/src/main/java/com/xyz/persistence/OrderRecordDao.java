@@ -16,8 +16,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrderRecordDao extends JpaRepository<OrderRecord, Integer>{
-    // @Transactional
-	// @Modifying
 
     // get customer Id (email) by Order Id
     @Query("SELECT customerEmail FROM OrderRecord WHERE orderId = :oId")
@@ -42,4 +40,7 @@ public interface OrderRecordDao extends JpaRepository<OrderRecord, Integer>{
     // get all Un-checkout orders by Customer Email
     @Query("FROM OrderRecord WHERE checkedOut = 0 AND customerEmail = :cEmail")
     public List<OrderRecord> getAllUncheckedOutOrderByEmail(@Param("cEmail") String cEmail);
+
+    // @Transactional
+	// @Modifying
 }

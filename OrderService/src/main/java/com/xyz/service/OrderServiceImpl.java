@@ -74,12 +74,12 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderRecord removeBasketItemsFromOrder(int OrderId, BasketItems basketItems) throws EditCheckedOutException {
+    public OrderRecord removeBasketItemsFromOrder(int OrderId, List<Integer> basketItemIds) throws EditCheckedOutException {
         Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
         if(!result.isEmpty()){
             if(!result.get().isCheckedOut()){
-                basketItems.getItems().forEach(basketItem -> {
-                    BasketItem basketItemToRemove = basketItemDao.getById(basketItem.getBasketItemId());
+                basketItemIds.forEach(basketItemId -> {
+                    BasketItem basketItemToRemove = basketItemDao.getById(basketItemId);
                     result.get().getItems().remove(basketItemToRemove);
                 });
                 return orderRecordDao.save(result.get());

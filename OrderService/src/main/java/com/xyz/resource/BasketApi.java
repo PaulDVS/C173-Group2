@@ -74,11 +74,11 @@ public class BasketApi {
 		return result;
 	}
 
-    @DeleteMapping(value="Orders/Items/Remove/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResultImp<OrderRecord> removeItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
+	@DeleteMapping(value="Orders/Items/Remove/{orderId}/{basketItemIds}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResultImp<OrderRecord> removeItems(@PathVariable int orderId, @PathVariable List<Integer> basketItemIds) {
 		ResultImp<OrderRecord> result = new ResultImp<OrderRecord>("The Item is removed Successfully", null);
 		try {
-			var res = orderService.removeBasketItemsFromOrder(orderId, basketItems);
+			var res = orderService.removeBasketItemsFromOrder(orderId, basketItemIds);
 			result.setObject(res);
 			return result;
 		} 
