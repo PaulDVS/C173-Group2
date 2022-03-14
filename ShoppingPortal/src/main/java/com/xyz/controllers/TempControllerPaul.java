@@ -64,4 +64,32 @@ public class TempControllerPaul {
 	}
 	
 	
+	@RequestMapping("/Checkout")
+	public ModelAndView checkOut(HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		List<BasketItemFull> basketItemsFull = new ArrayList();
+		int totalPrice = 0;
+		
+		User user = (User) session.getAttribute("currentUser"); 
+		
+	
+		
+		//Loading data into page
+		basketItemsFull = orderService.showCart(user.getCustomerEmail());
+		modelAndView.addObject("basketItemsFull", basketItemsFull);
+		
+		//Working out final price
+		for(BasketItemFull basketItem:basketItemsFull) {
+			totalPrice += basketItem.getBasketItemFinalPrice();
+		}
+		
+		//Confirming the Cart
+		orderService.confirmOrder(user.getCustomerEmail());
+		
+		modelAndView.addObject("totalPrice", totalPrice);
+		modelAndView.setViewName("Checkout");
+		return modelAndView;
+	}
+	
+	
 }

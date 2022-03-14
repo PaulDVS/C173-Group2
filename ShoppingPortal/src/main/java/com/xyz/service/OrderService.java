@@ -8,4 +8,5 @@ public interface OrderService {
 	public List<BasketItemFull> showCart(String currentUserEmail);
 	public String addItem();
 	public String removeItem(String currentUserEmail, int basketItemId);
+	public void confirmOrder(String currentUserEmail);
 }
