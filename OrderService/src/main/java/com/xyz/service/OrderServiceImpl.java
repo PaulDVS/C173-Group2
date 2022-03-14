@@ -1,7 +1,10 @@
 package com.xyz.service;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.xyz.entity.BasketItem;
 import com.xyz.entity.BasketItems;
@@ -59,12 +62,19 @@ public class OrderServiceImpl implements OrderService{
 
 
     @Override
-    public OrderRecord addBasketItemsToOrder(int OrderId, BasketItems basketItems) throws EditCheckedOutException {
-        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+    public OrderRecord addBasketItemsToOrder(int orderId, BasketItems basketItems) throws EditCheckedOutException{
+        Optional<OrderRecord> result = orderRecordDao.findById(orderId);
         if(!result.isEmpty()){
         	if(!result.get().isCheckedOut()) {
+                List<BasketItem> tempBasket = result.get().getItems();
+                Collections.sort(tempBasket);
         		basketItems.getItems().forEach(basketItem -> {
-                    result.get().getItems().add(basketItem);
+                    // if basketItem with specific ItemId already exist 
+                    int position = Collections.binarySearch(tempBasket, basketItem);
+                    if(position >= 0){
+                        this.addItemToOrder(result, position, basketItem);
+                    }
+                    else this.addNewItemToOrder(result, basketItem);
                 });
                 return orderRecordDao.save(result.get());
         	}
@@ -74,8 +84,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderRecord removeBasketItemsFromOrder(int OrderId, List<Integer> basketItemIds) throws EditCheckedOutException {
-        Optional<OrderRecord> result = orderRecordDao.findById(OrderId);
+    public OrderRecord removeBasketItemsFromOrder(int orderId, List<Integer> basketItemIds) throws EditCheckedOutException {
+        Optional<OrderRecord> result = orderRecordDao.findById(orderId);
         if(!result.isEmpty()){
             if(!result.get().isCheckedOut()){
                 basketItemIds.forEach(basketItemId -> {
@@ -109,5 +119,32 @@ public class OrderServiceImpl implements OrderService{
     public List<OrderRecord> getAllUncheckedOutOrderByEmail(String cEmail) {
         return orderRecordDao.getAllUncheckedOutOrderByEmail(cEmail);
     }
- 
+
+    @Override
+    public OrderRecord addNewItemToOrder(Optional<OrderRecord> result, BasketItem basketItem){
+        result.get().getItems().add(basketItem);
+        return orderRecordDao.save(result.get());
+    }
+
+    @Override
+    public OrderRecord addItemToOrder(Optional<OrderRecord> result, int itemPosition, BasketItem basketItem){
+        BasketItem basketItemToEdit = result.get().getItems().get(itemPosition);
+        basketItemToEdit.setQuantity(basketItemToEdit.getQuantity() + basketItem.getQuantity());
+        basketItemDao.save(basketItemToEdit);
+        return orderRecordDao.save(result.get());	
+    }
+
+    // @Override
+    // public OrderRecord subtractItemFromOrder(Optional<OrderRecord> result, int itemPosition, int quantity) {
+    //     BasketItem basketItemToRemove = result.get().getItems().get(itemPosition);
+    //     // if(basketItemToRemove.getQuantity() - quantity > 0){
+    //         basketItemToRemove.setQuantity(basketItemToRemove.getQuantity() - quantity);
+    //         basketItemDao.save(basketItemToRemove);
+    //     // }
+    //     // else {
+    //     //     result.get().getItems().remove(basketItemToRemove);
+    //     //     basketItemDao.delete(basketItemToRemove);
+    //     // }
+    //     return orderRecordDao.save(result.get());
+    // }
 }
