@@ -1,6 +1,8 @@
 Paul:
   AccountService
-  ShoppingPortal: AccountService, Account Section of controller and Login page
+  ShoppingPortal: 
+                  AccountService, Account Controller and Login page
+                  Cart page, viewcart(), removeItem(), Checkout 
   StockService: Sample Items and ItemTypes
 
 Suraiya: 

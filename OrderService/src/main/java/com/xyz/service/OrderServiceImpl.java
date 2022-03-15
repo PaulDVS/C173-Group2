@@ -84,15 +84,19 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderRecord removeBasketItemsFromOrder(int orderId, List<Integer> basketItemIds) throws EditCheckedOutException {
+    public OrderRecord removeBasketItemsFromOrder(int orderId, List<Integer> basketItemIds, List<Integer> quantities) throws EditCheckedOutException {
         Optional<OrderRecord> result = orderRecordDao.findById(orderId);
-        if(!result.isEmpty()){
+        if(!result.isEmpty() && basketItemIds.size() == quantities.size()){
             if(!result.get().isCheckedOut()){
-                basketItemIds.forEach(basketItemId -> {
-                    BasketItem basketItemToRemove = basketItemDao.getById(basketItemId);
-                    result.get().getItems().remove(basketItemToRemove);
-                    basketItemDao.delete(basketItemToRemove);
-                });
+                List<BasketItem> tempBasket = result.get().getItems();
+                Collections.sort(tempBasket);
+                for(int i = 0; i < basketItemIds.size(); i++){
+                    if(!basketItemDao.findById(basketItemIds.get(i)).isEmpty()){
+                        int position = Collections.binarySearch(tempBasket, basketItemDao.findById(basketItemIds.get(i)).get());
+                        System.out.println(position);
+                        this.subtractItemFromOrder(result, position, quantities.get(i));
+                    }
+                }
                 return orderRecordDao.save(result.get());
             }
             else throw new EditCheckedOutException("The order has already been confirmed.");
@@ -134,17 +138,17 @@ public class OrderServiceImpl implements OrderService{
         return orderRecordDao.save(result.get());	
     }
 
-    // @Override
-    // public OrderRecord subtractItemFromOrder(Optional<OrderRecord> result, int itemPosition, int quantity) {
-    //     BasketItem basketItemToRemove = result.get().getItems().get(itemPosition);
-    //     // if(basketItemToRemove.getQuantity() - quantity > 0){
-    //         basketItemToRemove.setQuantity(basketItemToRemove.getQuantity() - quantity);
-    //         basketItemDao.save(basketItemToRemove);
-    //     // }
-    //     // else {
-    //     //     result.get().getItems().remove(basketItemToRemove);
-    //     //     basketItemDao.delete(basketItemToRemove);
-    //     // }
-    //     return orderRecordDao.save(result.get());
-    // }
+    @Override
+    public OrderRecord subtractItemFromOrder(Optional<OrderRecord> result, int itemPosition, int quantity) {
+        BasketItem basketItemToRemove = result.get().getItems().get(itemPosition);
+        if(basketItemToRemove.getQuantity() - quantity > 0){
+            basketItemToRemove.setQuantity(basketItemToRemove.getQuantity() - quantity);
+            basketItemDao.save(basketItemToRemove);
+        }
+        else {
+            result.get().getItems().remove(basketItemToRemove);
+            basketItemDao.delete(basketItemToRemove);
+        }
+        return orderRecordDao.save(result.get());
+    }
 }
