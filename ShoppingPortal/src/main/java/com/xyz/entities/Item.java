@@ -11,7 +11,6 @@ public class Item {
 	
 	@Getter
 	@Setter
-//	@Id
 	private int id;
 	@Getter
 	@Setter

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xyz.entities.BasketItem;
 import com.xyz.entities.BasketItemFull;
 import com.xyz.entities.Item;
 import com.xyz.entities.ItemType;
@@ -29,6 +30,36 @@ public class TempControllerPaul {
 	@Autowired
 	OrderService orderService;
 
+	
+	
+	@RequestMapping(value="/StockItems/Add", method=RequestMethod.POST)
+	public ModelAndView addItemToBasketController(@ModelAttribute("basketItem") BasketItem basketItem, HttpSession session) {
+	
+		orderService.addItem();
+		
+		
+		
+	int orderAmount = basketItem.getQuantity();
+	
+	
+	BasketItemFull basket = new BasketItemFull();
+	basket.setBasketItemId(basketItem.getItemId());
+	
+		ModelAndView modelAndView = new ModelAndView();
+		List<BasketItemFull> basketItemsFull = new ArrayList();
+		
+		User user = (User) session.getAttribute("currentUser");
+		System.out.println(user);
+		
+		basketItemsFull = orderService.showCart(user.getCustomerEmail());
+		
+		modelAndView.addObject("basketItemsFull", basketItemsFull);
+		modelAndView.setViewName("Cart");
+		return modelAndView;
+	
+	}
+	
+	
 	
 	//Loads in the user basket of items using the email of the current user in session.
 	@RequestMapping("/ViewCart")

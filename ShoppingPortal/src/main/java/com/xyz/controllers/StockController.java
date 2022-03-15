@@ -1,6 +1,9 @@
 package com.xyz.controllers;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,11 +15,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xyz.entities.BasketItem;
+import com.xyz.entities.BasketItemFull;
 import com.xyz.entities.Item;
 import com.xyz.entities.ItemType;
 import com.xyz.entities.ItemTypes;
 import com.xyz.entities.Items;
 import com.xyz.entities.StockItem;
+import com.xyz.entities.User;
 import com.xyz.service.StockService;
 import com.xyz.service.StockServiceImpl;
 import com.xyz.service.StockTypeService;
@@ -56,6 +62,20 @@ public class StockController {
 		modelAndView.setViewName("StoreSelection");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/StockItems/Detail", method=RequestMethod.GET)
+	public ModelAndView getStockTypesController(@ModelAttribute("itemId") int itemId) {
+		Item item = stockServiceImpl.getItemById(itemId);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("item", item);
+		modelAndView.setViewName("ItemPage");
+		return modelAndView;
+	}
+	
+	
+	
+	
+	
 	
 	/* 
 	@RequestMapping(value="/StockItems/All", method=RequestMethod.GET)

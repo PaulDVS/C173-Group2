@@ -134,7 +134,7 @@ public class ShopController {
 	}
 	
 	@RequestMapping("/ViewItem")
-	public ModelAndView viewItemPage(@RequestBody Item item) {
+	public ModelAndView viewItemPage(@ModelAttribute Item item) {
 		ModelAndView modelAndView = new ModelAndView();
 		
 //		//temporary, TODO fix implementation

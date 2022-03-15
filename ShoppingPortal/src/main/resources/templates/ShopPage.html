@@ -22,8 +22,8 @@
 							<h5 class="card-title" th:text="${item.name}"></h5>
 							<h6 class="card-subtitle mb-2 text-muted" th:text=" 'Price: &#163;' + ${item.price}"></h6>
 							<span class="card-subtitle mb-2 text-muted" th:text="'Almost sold out, only ' + ${item.quantity} + ' left.' "></span>
-							<a th:href="'/StockItems/ByType/?ItemType='+ ${item.id}"  class="card-link btn btn-primary mt-4"> Add to basket</a>
-							<a th:href="'/StockItems/ByType/?ItemType='+ ${item.id}"  class="card-link btn btn-outline-secondary mt-4" style="float:right;">Description</a>
+							<a th:href="'/StockItems/ByType/?itemId='+ ${item.id}"  class="card-link btn btn-primary mt-4"> Add to basket</a>
+							<a th:href="'/StockItems/Detail/?itemId='+ ${item.id}"  class="card-link btn btn-outline-secondary mt-4" style="float:right;">Description</a>
 						</div>
 					</div>
 				
