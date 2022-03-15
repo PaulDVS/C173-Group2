@@ -78,7 +78,21 @@ public class BasketApi {
 	public ResultImp<OrderRecord> removeItems(@PathVariable int orderId, @PathVariable List<Integer> basketItemIds, @PathVariable List<Integer> quantities) {
 		ResultImp<OrderRecord> result = new ResultImp<OrderRecord>("The Item(s) is/are removed Successfully", null);
 		try {
-			var res = orderService.removeBasketItemsFromOrder(orderId, basketItemIds, quantities);
+			var res = orderService.removeBasketItemsFromOrderByQuantity(orderId, basketItemIds, quantities);
+			result.setObject(res);
+			return result;
+		} 
+		catch (EditCheckedOutException e) {
+			result.setMessage(e.getMessage()); 
+		}
+		return result;
+	}
+	
+	@PostMapping(value="Orders/Items/Remove/{orderId}/{basketItemIds}", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResultImp<OrderRecord> removeItems(@PathVariable int orderId, @PathVariable List<Integer> basketItemIds) {
+		ResultImp<OrderRecord> result = new ResultImp<OrderRecord>("The Item(s) is/are removed Successfully", null);
+		try {
+			var res = orderService.removeBasketItemsFromOrder(orderId, basketItemIds);
 			result.setObject(res);
 			return result;
 		} 

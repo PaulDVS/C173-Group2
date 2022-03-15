@@ -84,7 +84,7 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderRecord removeBasketItemsFromOrder(int orderId, List<Integer> basketItemIds, List<Integer> quantities) throws EditCheckedOutException {
+    public OrderRecord removeBasketItemsFromOrderByQuantity(int orderId, List<Integer> basketItemIds, List<Integer> quantities) throws EditCheckedOutException {
         Optional<OrderRecord> result = orderRecordDao.findById(orderId);
         if(!result.isEmpty() && basketItemIds.size() == quantities.size()){
             if(!result.get().isCheckedOut()){
@@ -97,6 +97,23 @@ public class OrderServiceImpl implements OrderService{
                         this.subtractItemFromOrder(result, position, quantities.get(i));
                     }
                 }
+                return orderRecordDao.save(result.get());
+            }
+            else throw new EditCheckedOutException("The order has already been confirmed.");
+        }
+        return null;
+    }
+
+    @Override
+    public OrderRecord removeBasketItemsFromOrder(int orderId, List<Integer> basketItemIds) throws EditCheckedOutException {
+        Optional<OrderRecord> result = orderRecordDao.findById(orderId);
+        if(!result.isEmpty()){
+            if(!result.get().isCheckedOut()){
+                basketItemIds.forEach(basketItemId -> {
+                    BasketItem basketItemToRemove = basketItemDao.getById(basketItemId);
+                    result.get().getItems().remove(basketItemToRemove);
+                    basketItemDao.delete(basketItemToRemove);
+                });
                 return orderRecordDao.save(result.get());
             }
             else throw new EditCheckedOutException("The order has already been confirmed.");
