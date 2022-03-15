@@ -62,7 +62,7 @@ public class BasketApi {
     @PostMapping(value="Orders/Items/Add/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	public ResultImp<OrderRecord> addItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
 		
-    	ResultImp<OrderRecord> result = new ResultImp<OrderRecord>("The Item is added Successfully", null); 
+    	ResultImp<OrderRecord> result = new ResultImp<OrderRecord>("The Item(s) is/are added Successfully", null); 
     	try {
 			var res = orderService.addBasketItemsToOrder(orderId, basketItems);
 			result.setObject(res);
@@ -74,9 +74,9 @@ public class BasketApi {
 		return result;
 	}
 
-	@DeleteMapping(value="Orders/Items/Remove/{orderId}/{basketItemIds}",produces=MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="Orders/Items/Remove/{orderId}/{basketItemIds}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResultImp<OrderRecord> removeItems(@PathVariable int orderId, @PathVariable List<Integer> basketItemIds) {
-		ResultImp<OrderRecord> result = new ResultImp<OrderRecord>("The Item is removed Successfully", null);
+		ResultImp<OrderRecord> result = new ResultImp<OrderRecord>("The Item(s) is/are removed Successfully", null);
 		try {
 			var res = orderService.removeBasketItemsFromOrder(orderId, basketItemIds);
 			result.setObject(res);

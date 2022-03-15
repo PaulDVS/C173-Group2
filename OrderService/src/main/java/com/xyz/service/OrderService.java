@@ -31,5 +31,11 @@ public interface OrderService {
 
     public OrderRecord removeBasketItemsFromOrder(int OrderId, List<Integer> basketItemIds) throws EditCheckedOutException;
 
+    public OrderRecord addNewItemToOrder(Optional<OrderRecord> result, BasketItem basketItem);
+
+    public OrderRecord addItemToOrder(Optional<OrderRecord> result, int itemPosition, BasketItem basketItem);
+
+    // public OrderRecord subtractItemFromOrder(Optional<OrderRecord> result, int itemPosition, int quantity);
+
     public OrderRecord confirmOrder(int OrderId);
 }

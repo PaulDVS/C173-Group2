@@ -20,7 +20,7 @@ import lombok.Setter;
 @Table(name = "BasketItem")
 @AllArgsConstructor
 @NoArgsConstructor
-public class BasketItem {
+public class BasketItem implements Comparable<BasketItem>{
 
 	@Getter
 	@Setter
@@ -35,10 +35,11 @@ public class BasketItem {
     @Getter
 	@Setter
 	private int quantity;
-
-	// @Getter
-	// @Setter
-	// @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "orderId")
-    // private OrderRecord orderRecord;
+	
+	@Override
+	public int compareTo(BasketItem basketItem) {
+		if(this.getItemId() == basketItem.getItemId()) return 0;
+		else if(this.getItemId() > basketItem.getItemId()) return 1;
+		else return -1;
+	}
 }
