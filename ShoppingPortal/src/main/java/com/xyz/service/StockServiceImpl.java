@@ -29,6 +29,7 @@ public class StockServiceImpl implements StockService {
 	@Override
 	public Items getItemsByType(ItemType itemType) {
 		return restTemplate.postForObject("http://localhost:8081/Items/Type", itemType, Items.class);
+		
 	}
 
 	@Override

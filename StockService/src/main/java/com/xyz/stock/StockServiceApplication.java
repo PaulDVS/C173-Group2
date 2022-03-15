@@ -34,9 +34,9 @@ public class StockServiceApplication implements CommandLineRunner {
 		ItemType itemType2 = new ItemType("CD", 10);
 		ItemType itemType3 = new ItemType("Cosmetics", 12);
 		
-		itemTypeDoa.save(itemType1);
-		itemTypeDoa.save(itemType2);
-		itemTypeDoa.save(itemType3);
+		//itemTypeDoa.save(itemType1);
+		//itemTypeDoa.save(itemType2);
+		//itemTypeDoa.save(itemType3);
 		
 		Item item01 = new Item(1001, "Book 1", itemType1, 10, 3);
 		Item item02 = new Item(1002, "Book 2", itemType1, 15, 1000);

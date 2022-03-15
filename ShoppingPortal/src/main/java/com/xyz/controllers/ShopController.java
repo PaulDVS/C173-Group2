@@ -18,15 +18,20 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.xyz.entities.Item;
 import com.xyz.entities.ItemType;
+import com.xyz.entities.ItemTypes;
 import com.xyz.entities.Items;
 import com.xyz.entities.User;
 import com.xyz.exception.UserCreationError;
 import com.xyz.service.AccountService;
+import com.xyz.service.StockTypeService;
 
 @Controller
 public class ShopController {
 	@Autowired
 	AccountService accountService;
+	
+	@Autowired
+	private StockTypeService stockTypeServiceImp;
 	
 	//Homepage, takes the user to the Login/Register webpage.
 	@RequestMapping("/")
@@ -45,7 +50,11 @@ public class ShopController {
 		ModelAndView modelAndView = new ModelAndView();
 		User user = accountService.loginCheck(userName, password);
 		if(user!=null) {
+			
+			ItemTypes itemTypes = stockTypeServiceImp.getAllItemTypes();
+			modelAndView.addObject("types", itemTypes.getItemTypes());
 			modelAndView.setViewName("StoreSelection");
+			
 			session.setAttribute("currentUser", user);	
 		} else {
 			modelAndView.addObject("message", "Login Failed. Please try again.");
