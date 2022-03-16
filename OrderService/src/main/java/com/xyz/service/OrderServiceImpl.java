@@ -59,25 +59,25 @@ public class OrderServiceImpl implements OrderService{
         }
         return null;
     }
-
-
+    
     @Override
-    public OrderRecord addBasketItemsToOrder(int orderId, BasketItems basketItems) throws EditCheckedOutException{
+    public OrderRecord addBasketItemsToOrder(int orderId, List<Integer> itemIds, List<Integer> quantities) throws EditCheckedOutException {
         Optional<OrderRecord> result = orderRecordDao.findById(orderId);
-        if(!result.isEmpty()){
-        	if(!result.get().isCheckedOut()) {
+        if(!result.isEmpty() && itemIds.size() == quantities.size()){
+            if(!result.get().isCheckedOut()) {
                 List<BasketItem> tempBasket = result.get().getItems();
                 Collections.sort(tempBasket);
-        		basketItems.getItems().forEach(basketItem -> {
-                    // if basketItem with specific ItemId already exist 
-                    int position = Collections.binarySearch(tempBasket, basketItem);
+                for(int i = 0; i < itemIds.size(); i++){
+                    BasketItem tempBt = new BasketItem(1, itemIds.get(i), quantities.get(i));
+                     // if basketItem with specific ItemId already exist
+                    int position = Collections.binarySearch(tempBasket, tempBt);
                     if(position >= 0){
-                        this.addItemToOrder(result, position, basketItem);
+                        this.addItemToOrder(result, position, tempBt);
                     }
-                    else this.addNewItemToOrder(result, basketItem);
-                });
+                    else this.addNewItemToOrder(result, tempBt);
+                }
                 return orderRecordDao.save(result.get());
-        	}
+            }
             else throw new EditCheckedOutException("The order has already been confirmed.");
         }
         return null;

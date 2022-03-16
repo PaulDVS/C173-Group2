@@ -58,13 +58,11 @@ public class BasketApi {
 		return orderService.createOrderRecord(orderRecord);
 	}
 
-
-    @PostMapping(value="Orders/Items/Add/{orderId}",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public ResultImp<OrderRecord> addItems(@PathVariable int orderId, @RequestBody BasketItems basketItems) {
-		
+	@PostMapping(value="Orders/Items/Add/{orderId}/{itemIds}/{quantities}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResultImp<OrderRecord> addItems(@PathVariable int orderId, @PathVariable List<Integer> itemIds, @PathVariable List<Integer> quantities) {
     	ResultImp<OrderRecord> result = new ResultImp<OrderRecord>("The Item(s) is/are added Successfully", null); 
     	try {
-			var res = orderService.addBasketItemsToOrder(orderId, basketItems);
+			var res = orderService.addBasketItemsToOrder(orderId, itemIds, quantities);
 			result.setObject(res);
 			return result;
 		} 
