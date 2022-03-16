@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeeaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:remove="all">Template for HTML email </title>
+
+</head>
+
+<body>
+<img th:src="@{/resources/images/Picture.png}" />
+<h1></h1>
+<p th:text ="#{greeting(${name})}">
+
+</p>
+<p>
+Thank you for placing your order with XYZ retail. 
+Your order is going to delivered to:
+
+
+</p> 
+
+</body>
+</html>

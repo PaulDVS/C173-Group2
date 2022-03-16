@@ -19,38 +19,31 @@ import com.xyz.entities.BasketItem;
 import com.xyz.entities.BasketItemFull;
 import com.xyz.entities.Item;
 import com.xyz.entities.ItemType;
+import com.xyz.entities.ItemTypes;
 import com.xyz.entities.Items;
 import com.xyz.entities.User;
 import com.xyz.exception.UserCreationError;
 import com.xyz.service.AccountService;
 import com.xyz.service.OrderService;
+import com.xyz.service.StockTypeService;
 
 @Controller
 public class TempControllerPaul {
 	@Autowired
 	OrderService orderService;
 
-	
+	@Autowired
+	private StockTypeService stockTypeServiceImp;
 	
 	@RequestMapping(value="/StockItems/Add", method=RequestMethod.POST)
-	public ModelAndView addItemToBasketController(@ModelAttribute("basketItem") BasketItem basketItem, HttpSession session) {
-	
-		orderService.addItem();
-		
-		
-		
-	int orderAmount = basketItem.getQuantity();
-	
-	
-	BasketItemFull basket = new BasketItemFull();
-	basket.setBasketItemId(basketItem.getItemId());
-	
+	public ModelAndView addItemToBasketController(@ModelAttribute("currentItemId") int id, @ModelAttribute("currentItemQuantity") int quantity, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BasketItemFull> basketItemsFull = new ArrayList();
 		
 		User user = (User) session.getAttribute("currentUser");
-		System.out.println(user);
 		
+		orderService.addItem(user.getCustomerEmail(), id, quantity);
+	
 		basketItemsFull = orderService.showCart(user.getCustomerEmail());
 		
 		modelAndView.addObject("basketItemsFull", basketItemsFull);
@@ -68,8 +61,7 @@ public class TempControllerPaul {
 		List<BasketItemFull> basketItemsFull = new ArrayList();
 		
 		User user = (User) session.getAttribute("currentUser");
-		System.out.println(user);
-		
+
 		basketItemsFull = orderService.showCart(user.getCustomerEmail());
 		
 		modelAndView.addObject("basketItemsFull", basketItemsFull);
@@ -85,7 +77,6 @@ public class TempControllerPaul {
 		User user = (User) session.getAttribute("currentUser"); 
 		//Removes item from cart
 		String message = orderService.removeItem(user.getCustomerEmail(), basketItemId);
-		System.out.println(message);
 		
 		//Reloads basketItems into cart
 		basketItemsFull = orderService.showCart(user.getCustomerEmail());
@@ -99,7 +90,7 @@ public class TempControllerPaul {
 	public ModelAndView checkOut(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BasketItemFull> basketItemsFull = new ArrayList();
-		int totalPrice = 0;
+		float totalPrice = 0;
 		
 		User user = (User) session.getAttribute("currentUser"); 
 		
@@ -117,6 +108,16 @@ public class TempControllerPaul {
 		
 		modelAndView.addObject("totalPrice", totalPrice);
 		modelAndView.setViewName("Checkout");
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping("/StoreSelection")
+	public ModelAndView goToStoreSelection() {
+		ModelAndView modelAndView = new ModelAndView();
+		ItemTypes itemTypes = stockTypeServiceImp.getAllItemTypes();
+		modelAndView.addObject("types", itemTypes.getItemTypes());
+		modelAndView.setViewName("StoreSelection");
 		return modelAndView;
 	}
 	
