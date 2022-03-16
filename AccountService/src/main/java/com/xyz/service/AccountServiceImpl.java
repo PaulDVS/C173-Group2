@@ -21,7 +21,6 @@ public class AccountServiceImpl implements AccountService {
 	//Register service
 	@Override
 	public User register(User user) {
-		System.out.println(user);
 		return userDoa.save(user);
 	}
 

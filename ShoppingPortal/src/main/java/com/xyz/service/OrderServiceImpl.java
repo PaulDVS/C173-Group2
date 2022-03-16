@@ -76,7 +76,7 @@ public class OrderServiceImpl implements OrderService{
 		if(!currentOrdersList.getOrderRecordList().isEmpty()) {
 			currentOrders = currentOrdersList.getOrderRecordList().get(0);
 		} else {
-			currentOrders = restTemplate.getForObject("http://localhost:8082/Orders/Create/"+currentUserEmail, OrderRecord.class);
+			currentOrders = restTemplate.postForEntity("http://localhost:8082/Orders/Create/"+currentUserEmail, null, OrderRecord.class).getBody();
 		}
 		
 

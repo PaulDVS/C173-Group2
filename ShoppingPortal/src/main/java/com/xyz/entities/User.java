@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class User {
 	@Getter
 	@Setter

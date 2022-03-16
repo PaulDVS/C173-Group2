@@ -1,19 +1,23 @@
-package com.xyz.stock.entity;
-
-import java.util.List;
+package com.xyz.entities;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@EqualsAndHashCode
+
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemTypes {
+public class Login {
+	
 	@Getter
 	@Setter
-	private List<ItemType> itemTypes;
+	private String userName;
+	@Getter
+	@Setter
+	private String password;
+	@Getter
+	@Setter
+	private boolean rememberMe; 
 
 }

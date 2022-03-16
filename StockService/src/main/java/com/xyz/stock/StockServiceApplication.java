@@ -30,13 +30,14 @@ public class StockServiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		/*
 		ItemType itemType1 = new ItemType("Books", 0);
 		ItemType itemType2 = new ItemType("CD", 10);
 		ItemType itemType3 = new ItemType("Cosmetics", 12);
 		
-		//itemTypeDoa.save(itemType1);
-		//itemTypeDoa.save(itemType2);
-		//itemTypeDoa.save(itemType3);
+		itemTypeDoa.save(itemType1);
+		itemTypeDoa.save(itemType2);
+		itemTypeDoa.save(itemType3);
 		
 		Item item01 = new Item(1001, "Book 1", itemType1, 10, 3);
 		Item item02 = new Item(1002, "Book 2", itemType1, 15, 1000);
@@ -72,7 +73,7 @@ public class StockServiceApplication implements CommandLineRunner {
 		Item item28 = new Item(3008, "Cosmetic 8", itemType3, 29, 1000);
 		Item item29 = new Item(3009, "Cosmetic 9", itemType3, 99, 1000);
 		Item item30 = new Item(3010, "Cosmetic 10", itemType3, 50, 30);
-	/*
+
 		itemDoa.save(item01);
 		itemDoa.save(item02);
 		itemDoa.save(item03);

@@ -42,27 +42,7 @@ public class ShopController {
 		return modelAndView;
 	}
 	
-	//Attempt to login using a username and password
-		//On fail go back to Login page with an appropriate message
-		//On success go to Store Selection page and load user into session
-	@RequestMapping("/Login")
-	public ModelAndView attemptLogin(@ModelAttribute("userName") String userName, @ModelAttribute("password") String password, HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
-		User user = accountService.loginCheck(userName, password);
-		if(user!=null) {
-			
-			ItemTypes itemTypes = stockTypeServiceImp.getAllItemTypes();
-			modelAndView.addObject("types", itemTypes.getItemTypes());
-			modelAndView.setViewName("StoreSelection");
-			
-			session.setAttribute("currentUser", user);	
-		} else {
-			modelAndView.addObject("message", "Login Failed. Please try again.");
-			modelAndView.setViewName("Login");
-		}
-
-		return modelAndView;
-	}
+	
 	
 	//Attempt to register a new user using input details
 		//If the code doesn't throw an exception go to Store Selection page and load user into session
