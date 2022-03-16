@@ -16,16 +16,14 @@ import com.xyz.entities.Item;
 import com.xyz.entities.OrderRecord;
 import com.xyz.entities.OrderRecords;
 import com.xyz.entities.ResultImp;
+import com.xyz.entities.StockItem;
+import com.xyz.entities.User;
 
 @Service
 public class OrderServiceImpl implements OrderService{
 
 	@Autowired
 	private RestTemplate restTemplate;
-	
-	
-	
-	
 	
 	
 	//Returns a list of BasketItemFull, an object that displays all the required info for the cart page
@@ -56,13 +54,11 @@ public class OrderServiceImpl implements OrderService{
 				
 				currentItem = restTemplate.getForObject("http://localhost:8081/Items/Id/"+basketItem.getItemId(), Item.class);
 	
-				
 				name = currentItem.getName();
 				price = currentItem.getPrice();
 				tax = currentItem.getType().getTaxRate();
 				
 				finalPrice = (quantity*price) + ((quantity*price)*(tax/100));
-				
 				currentBasketItem = new BasketItemFull(id, name, quantity, price, tax, finalPrice);
 				basketItemsFull.add(currentBasketItem);
 			}
@@ -72,9 +68,30 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public String addItem() {
-		// TODO Auto-generated method stub
-		return null;
+	public String addItem(String currentUserEmail, int ItemId, int quantity) {
+		String results;
+		OrderRecord currentOrders = new OrderRecord();
+		
+		OrderRecords currentOrdersList =  restTemplate.getForObject("http://localhost:8082/Orders/Unconfirmed/"+currentUserEmail, OrderRecords.class);
+		if(!currentOrdersList.getOrderRecordList().isEmpty()) {
+			currentOrders = currentOrdersList.getOrderRecordList().get(0);
+		} else {
+			currentOrders = restTemplate.getForObject("http://localhost:8082/Orders/Create/"+currentUserEmail, OrderRecord.class);
+		}
+		
+
+		HttpHeaders header = new HttpHeaders();
+		HttpEntity<OrderRecord> entity = new HttpEntity<OrderRecord>(header);
+
+		ResultImp<OrderRecord> result = restTemplate.exchange("http://localhost:8082/Orders/Items/Add/"+currentOrders.getOrderId()+"/"+ItemId+"/"+quantity, HttpMethod.POST, entity, ResultImp.class).getBody();
+		
+		if(result.getMessage().equals("The Item(s) is/are added Successfully")) {
+			Item item = restTemplate.getForObject("http://localhost:8081/Items/Id/"+ItemId, Item.class);
+			StockItem changedItem = new StockItem(item.getId(), (item.getQuantity()-quantity));
+			restTemplate.put("http://localhost:8081/Items/Quantity/Set", changedItem);
+		}
+		
+		return result.getMessage();
 	}
 
 
@@ -87,7 +104,8 @@ public class OrderServiceImpl implements OrderService{
 		HttpHeaders header = new HttpHeaders();
 		HttpEntity<OrderRecord> entity = new HttpEntity<OrderRecord>(header);
 
-		ResultImp<OrderRecord> result = restTemplate.exchange("http://localhost:8082/Orders/Items/Remove/"+currentOrders.getOrderId()+"/"+basketItemId, HttpMethod.DELETE, entity, ResultImp.class).getBody();
+		ResultImp<OrderRecord> result = restTemplate.exchange("http://localhost:8082/Orders/Items/Remove/"+currentOrders.getOrderId()+"/"+basketItemId, HttpMethod.POST, entity, ResultImp.class).getBody();
+		
 		
 		return result.getMessage();
 	}

@@ -33,24 +33,14 @@ public class TempControllerPaul {
 	
 	
 	@RequestMapping(value="/StockItems/Add", method=RequestMethod.POST)
-	public ModelAndView addItemToBasketController(@ModelAttribute("basketItem") BasketItem basketItem, HttpSession session) {
-	
-		orderService.addItem();
-		
-		
-		
-	int orderAmount = basketItem.getQuantity();
-	
-	
-	BasketItemFull basket = new BasketItemFull();
-	basket.setBasketItemId(basketItem.getItemId());
-	
+	public ModelAndView addItemToBasketController(@ModelAttribute("currentItemId") int id, @ModelAttribute("currentItemQuantity") int quantity, HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BasketItemFull> basketItemsFull = new ArrayList();
 		
 		User user = (User) session.getAttribute("currentUser");
-		System.out.println(user);
 		
+		orderService.addItem(user.getCustomerEmail(), id, quantity);
+	
 		basketItemsFull = orderService.showCart(user.getCustomerEmail());
 		
 		modelAndView.addObject("basketItemsFull", basketItemsFull);
@@ -68,8 +58,7 @@ public class TempControllerPaul {
 		List<BasketItemFull> basketItemsFull = new ArrayList();
 		
 		User user = (User) session.getAttribute("currentUser");
-		System.out.println(user);
-		
+
 		basketItemsFull = orderService.showCart(user.getCustomerEmail());
 		
 		modelAndView.addObject("basketItemsFull", basketItemsFull);
@@ -99,7 +88,7 @@ public class TempControllerPaul {
 	public ModelAndView checkOut(HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
 		List<BasketItemFull> basketItemsFull = new ArrayList();
-		int totalPrice = 0;
+		float totalPrice = 0;
 		
 		User user = (User) session.getAttribute("currentUser"); 
 		

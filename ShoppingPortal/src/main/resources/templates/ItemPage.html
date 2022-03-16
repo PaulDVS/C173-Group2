@@ -55,11 +55,11 @@
 			</dd>
 		</dl>
 		<form action="/StockItems/Add" method="post">
-		<input type="hidden" th:value="${item.id}" name="id">
+		<input type="hidden" th:value="${item.id}" name="currentItemId">
 		<label for="currentItemQuantity" name="currentItemQuantity">Quantity: <input
 			class="form-control mt-3 mb-3 ml-3 mr-3"
 			style="width: auto; display: inline-block; margin-right: 10px; margin-left: 10px;"
-			type="number" id="quantity" name="quantity" value="1" min="1"
+			type="number" id="quantity" name="currentItemQuantity" value="1" min="1"
 			th:attr="max=${item.quantity}" size=1
 			oninput="this.size = this.value.length" autocomplete="off"></label> 
 			
