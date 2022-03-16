@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ import org.springframework.test.context.ContextConfiguration;
 import com.xyz.entity.BasketItem;
 import com.xyz.entity.BasketItems;
 import com.xyz.entity.OrderRecord;
+import com.xyz.orderServiceApp.OrderServiceApplication;
 import com.xyz.persistence.BasketItemDao;
 import com.xyz.persistence.OrderRecordDao;
 import com.xyz.service.EditCheckedOutException;
@@ -35,8 +37,9 @@ import com.xyz.service.OrderServiceImpl;
 	@AfterEach
 	@AfterAll
 */
-@SpringBootTest
-@ContextConfiguration(classes = AuthConfig.class)
+
+@SpringBootTest(classes=OrderServiceApplication.class)
+//@ContextConfiguration(classes = AuthConfig.class)
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceApplicationTests {
 	
@@ -59,29 +62,50 @@ public class OrderServiceApplicationTests {
 	@Test
 	public void test2() {
 		boolean orderExists = false;
-		OrderRecord orderRecord= orderService.createOrderRecord("jozef@gmail.com");
+		
+		OrderRecord orderRecordd=new OrderRecord(0, "Jozef@Wiley.com",false, null);
+		
+		when(orderRecordDao.save(orderRecordd)).thenReturn(orderRecordd);
+
+		OrderRecord orderRecord = orderService.createOrderRecord("Jozef@Wiley.com");
+		assertThat(orderRecord.isCheckedOut()).isFalse();
+		
 		BasketItem item = new BasketItem(12, 1001, 5);
 		BasketItem item2 = new BasketItem(13, 1002, 10);
+		
+		List<BasketItem>basketItems = Arrays.asList(
+		 item,
+		 item2
+		);
+		
+		orderRecord.setItems(basketItems);
+		
+		
+		
+		
 		orderService.addNewItemToOrder(Optional.of(orderRecord), item);
 		orderService.addNewItemToOrder(Optional.of(orderRecord), item2);
+		
 		for(OrderRecord record : orderService.getAllOrderRecords()) {
 			if(record.getOrderId() == orderRecord.getOrderId()) {
 				orderExists = true;
 			}
 		}
 		
-		assertThat(orderExists);
+		
 	}
 	
 	// Checks that items added to an order can be retrieved.
 	@Test
 	public void test3() {
 		boolean itemsExist = false;
+		
 		OrderRecord orderRecord= orderService.createOrderRecord("jozef@gmail.com");
 		BasketItem item = new BasketItem(12, 1001, 5);
 		BasketItem item2 = new BasketItem(13, 1002, 10);
 		orderService.addNewItemToOrder(Optional.of(orderRecord), item);
 		orderService.addNewItemToOrder(Optional.of(orderRecord), item2);
+		
 		for(OrderRecord record : orderService.getAllOrderRecords()) {
 			if(record.getOrderId() == orderRecord.getOrderId()) {
 				if(record.getItems().contains(item) && record.getItems().contains(item2)) {
@@ -99,11 +123,13 @@ public class OrderServiceApplicationTests {
 	public void test4() throws EditCheckedOutException {
 		boolean itemsExist = false;
 		boolean itemRemovedSuccessfully = false;
+		
 		OrderRecord orderRecord= orderService.createOrderRecord("jozef@gmail.com");
 		BasketItem item = new BasketItem(12, 1001, 5);
 		BasketItem item2 = new BasketItem(13, 1002, 10);
 		orderService.addNewItemToOrder(Optional.of(orderRecord), item);
 		orderService.addNewItemToOrder(Optional.of(orderRecord), item2);
+		
 		for(OrderRecord record : orderService.getAllOrderRecords()) {
 			if(record.getOrderId() == orderRecord.getOrderId()) {
 				if(record.getItems().contains(item) && record.getItems().contains(item2)) {
@@ -130,11 +156,13 @@ public class OrderServiceApplicationTests {
 	public void test5() throws EditCheckedOutException {
 		boolean itemsExist = false;
 		boolean quantityChangedSuccessfully = false;
+		
 		OrderRecord orderRecord= orderService.createOrderRecord("jozef@gmail.com");
 		BasketItem item = new BasketItem(12, 1001, 5);
 		BasketItem item2 = new BasketItem(13, 1002, 10);
 		orderService.addNewItemToOrder(Optional.of(orderRecord), item);
 		orderService.addNewItemToOrder(Optional.of(orderRecord), item2);
+		
 		for(OrderRecord record : orderService.getAllOrderRecords()) {
 			if(record.getOrderId() == orderRecord.getOrderId()) {
 				if(record.getItems().contains(item) && record.getItems().contains(item2)) {
