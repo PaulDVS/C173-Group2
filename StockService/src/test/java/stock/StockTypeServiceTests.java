@@ -47,6 +47,7 @@ class StockTypeServiceTests {
 		ItemTypes itemTypes = new ItemTypes(types);
 		
 		when(itemTypeDao.findAll()).thenReturn(types);
+		
 		assertThat(itemTypeService.getAllTypes()).isEqualTo(itemTypes);
 	}
 	
