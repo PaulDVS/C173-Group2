@@ -106,6 +106,21 @@ public class OrderServiceImpl implements OrderService{
 
 		ResultImp<OrderRecord> result = restTemplate.exchange("http://localhost:8082/Orders/Items/Remove/"+currentOrders.getOrderId()+"/"+basketItemId, HttpMethod.POST, entity, ResultImp.class).getBody();
 		
+		int itemId=0;
+		int quantity=0;
+		for(BasketItem currentItem : currentOrders.getItems()){
+			if(currentItem.getBasketItemId() == basketItemId) {
+				itemId = currentItem.getItemId();
+				quantity = currentItem.getQuantity();
+			}
+		}
+		
+		if(result.getMessage().equals("The Item(s) is/are removed Successfully")) {
+			Item item = restTemplate.getForObject("http://localhost:8081/Items/Id/"+itemId, Item.class);
+			StockItem changedItem = new StockItem(item.getId(), (item.getQuantity()+quantity));
+			restTemplate.put("http://localhost:8081/Items/Quantity/Set", changedItem);
+		}
+		
 		
 		return result.getMessage();
 	}

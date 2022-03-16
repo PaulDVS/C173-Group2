@@ -74,7 +74,6 @@ public class TempControllerPaul {
 		User user = (User) session.getAttribute("currentUser"); 
 		//Removes item from cart
 		String message = orderService.removeItem(user.getCustomerEmail(), basketItemId);
-		System.out.println(message);
 		
 		//Reloads basketItems into cart
 		basketItemsFull = orderService.showCart(user.getCustomerEmail());
