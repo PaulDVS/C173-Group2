@@ -45,8 +45,11 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderRecord createOrderRecord(OrderRecord orderRecord) {
-        return orderRecordDao.save(orderRecord);
+    public OrderRecord createOrderRecord(String cEmail) {
+        OrderRecord orderRecordToAdd = new OrderRecord();
+        orderRecordToAdd.setCustomerEmail(cEmail);
+        orderRecordToAdd.setCheckedOut(false);
+        return orderRecordDao.save(orderRecordToAdd);
     }
 
     @Override
@@ -59,7 +62,7 @@ public class OrderServiceImpl implements OrderService{
         }
         return null;
     }
-    
+
     @Override
     public OrderRecord addBasketItemsToOrder(int orderId, List<Integer> itemIds, List<Integer> quantities) throws EditCheckedOutException {
         Optional<OrderRecord> result = orderRecordDao.findById(orderId);

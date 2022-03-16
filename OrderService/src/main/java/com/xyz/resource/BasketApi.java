@@ -53,9 +53,9 @@ public class BasketApi {
 		return new OrderRecords(orderService.getAllUncheckedOutOrderByEmail(cEmail));
 	}
 
-	@PostMapping(value="Orders/Create",produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-	public OrderRecord createOrder(@RequestBody OrderRecord orderRecord) {
-		return orderService.createOrderRecord(orderRecord);
+	@PostMapping(value="Orders/Create/{cEmail}",produces=MediaType.APPLICATION_JSON_VALUE)
+	public OrderRecord createOrder(@PathVariable String cEmail) {
+		return orderService.createOrderRecord(cEmail);
 	}
 
 	@PostMapping(value="Orders/Items/Add/{orderId}/{itemIds}/{quantities}",produces=MediaType.APPLICATION_JSON_VALUE)

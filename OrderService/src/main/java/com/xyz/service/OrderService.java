@@ -25,7 +25,7 @@ public interface OrderService {
 
     public List<OrderRecord> getAllUncheckedOutOrderByEmail(String cEmail);
 
-    public OrderRecord createOrderRecord(OrderRecord orderRecord);
+    public OrderRecord createOrderRecord(String cEmail);
 
     public OrderRecord addBasketItemsToOrder(int orderId, List<Integer> itemIds, List<Integer> quantities) throws EditCheckedOutException;
 
