@@ -19,18 +19,21 @@ import com.xyz.entities.BasketItem;
 import com.xyz.entities.BasketItemFull;
 import com.xyz.entities.Item;
 import com.xyz.entities.ItemType;
+import com.xyz.entities.ItemTypes;
 import com.xyz.entities.Items;
 import com.xyz.entities.User;
 import com.xyz.exception.UserCreationError;
 import com.xyz.service.AccountService;
 import com.xyz.service.OrderService;
+import com.xyz.service.StockTypeService;
 
 @Controller
 public class TempControllerPaul {
 	@Autowired
 	OrderService orderService;
 
-	
+	@Autowired
+	private StockTypeService stockTypeServiceImp;
 	
 	@RequestMapping(value="/StockItems/Add", method=RequestMethod.POST)
 	public ModelAndView addItemToBasketController(@ModelAttribute("currentItemId") int id, @ModelAttribute("currentItemQuantity") int quantity, HttpSession session) {
@@ -105,6 +108,16 @@ public class TempControllerPaul {
 		
 		modelAndView.addObject("totalPrice", totalPrice);
 		modelAndView.setViewName("Checkout");
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping("/StoreSelection")
+	public ModelAndView goToStoreSelection() {
+		ModelAndView modelAndView = new ModelAndView();
+		ItemTypes itemTypes = stockTypeServiceImp.getAllItemTypes();
+		modelAndView.addObject("types", itemTypes.getItemTypes());
+		modelAndView.setViewName("StoreSelection");
 		return modelAndView;
 	}
 	

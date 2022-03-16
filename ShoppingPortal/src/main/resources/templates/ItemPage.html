@@ -137,7 +137,7 @@
 </table>
 -->
 
-	<a href="./ShopPage">Back to <text th:text=${item.type.type} />
+	<a th:href="@{/StockItems/ByType/?ItemType={ItemType}(ItemType=${item.type.type})}">Back to <text th:text=${item.type.type} />
 		shop
 	</a>
 </body>
