@@ -23,4 +23,5 @@ Jozef:
   Stock Service: Partially written.
   Stock Controller: Implemented class.
   ItemPage.html: Wrote page.
+  OrderServiceTests: Written some test for the service.
 
