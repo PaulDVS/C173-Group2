@@ -1,11 +1,8 @@
 package com.xyz.stock.service;
 
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.xyz.stock.entity.ItemType;
 import com.xyz.stock.entity.ItemTypes;
 import com.xyz.stock.persistence.ItemTypeDao;
@@ -33,14 +30,14 @@ public class ItemTypeServiceImp implements ItemTypeService {
 @Override
 	public ItemType setTaxtRate(String itemTypeId, float taxRate) {
 
-		ItemType foundItem = itemTypeDao.findById(itemTypeId).get();
+		ItemType foundItem = itemTypeDao.getById(itemTypeId);
 
 		if (foundItem!=null) {
 			foundItem.setTaxRate(taxRate);
 			itemTypeDao.save(foundItem);
 			return foundItem;
 		}
-		return null;
+		return new ItemType("Not Found",Float.NaN);
 	}
 @Override
 	public float getTaxtRate(String itemTypeId) {
@@ -48,7 +45,6 @@ public class ItemTypeServiceImp implements ItemTypeService {
 		ItemType foundItem = itemTypeDao.getById(itemTypeId);
 
 		if (foundItem!=null) {
-			//ItemType itemType = foundItem.get();
 			return foundItem.getTaxRate();
 		}
 		return NO_RATE;
