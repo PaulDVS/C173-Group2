@@ -27,7 +27,7 @@ public interface OrderService {
 
     public OrderRecord createOrderRecord(OrderRecord orderRecord);
 
-    public OrderRecord addBasketItemsToOrder(int orderId, BasketItems basketItems) throws EditCheckedOutException;
+    public OrderRecord addBasketItemsToOrder(int orderId, List<Integer> itemIds, List<Integer> quantities) throws EditCheckedOutException;
 
     public OrderRecord removeBasketItemsFromOrderByQuantity(int orderId, List<Integer> basketItemIds, List<Integer> quantities) throws EditCheckedOutException;
 
