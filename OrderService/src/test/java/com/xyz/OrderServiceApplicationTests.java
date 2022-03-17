@@ -385,4 +385,49 @@ public class OrderServiceApplicationTests {
 		assertThat(result.getItems().get(0).getItemId()).isEqualTo(1);
 		assertThat(result.getItems().get(0).getQuantity()).isEqualTo(2);
 	}
+
+	// Check OrderRecord removeBasketItemsFromOrder(int orderId, List<Integer> basketItemIds) throws EditCheckedOutException
+	@Test
+	public void Test12() throws EditCheckedOutException{
+		// check removing to an Order Id that does not exist.
+		when(orderRecordDao.findById(10)).thenReturn(Optional.empty());
+		List<Integer> dummyList = Arrays.asList(new Integer[]{1});
+		assertThat(orderService.removeBasketItemsFromOrder(10, dummyList)).isEqualTo(null);
+
+		// check removing to an Order Id that is already checked out
+		when(orderRecordDao.findById(0)).thenReturn(Optional.of(new OrderRecord(0, "Jozef@Wiley.com", true, null)));
+		Throwable exception = assertThrows(EditCheckedOutException.class, () -> orderService.removeBasketItemsFromOrder(0, dummyList));
+    	assertEquals("The order has already been confirmed.", exception.getMessage());
+
+		// check removing order to an order Id unchecked out
+		BasketItem b1 = new BasketItem(1, 1, 1);
+		BasketItem b2 = new BasketItem(2, 2, 2);
+		BasketItem b3 = new BasketItem(3, 3, 3);
+
+		List<BasketItem> itemsBefore = Arrays.asList(new BasketItem[]{b1, b2, b3});
+		List<BasketItem> itemsAfter = Arrays.asList(new BasketItem[]{b2, b3});
+
+		OrderRecord before = new OrderRecord(1, "Paul@Wiley.com", false, itemsBefore);
+
+		assertThat(before.getItems().get(0).getQuantity()).isEqualTo(1);
+		assertThat(before.getItems().size()).isEqualTo(3);
+
+		OrderRecord after = new OrderRecord(1, "Paul@Wiley.com", false, itemsAfter);
+
+		basketItemDao.delete(b1);
+		verify(basketItemDao).delete(b1);
+
+		when(basketItemDao.findById(1)).thenReturn(null);
+
+		assertThat(basketItemDao.findById(1)).isNull();
+
+		when(orderRecordDao.findById(1)).thenReturn(Optional.of(after));
+
+		when(orderRecordDao.save(after)).thenReturn(after);
+
+		OrderRecord result = orderService.removeBasketItemsFromOrder(1, Arrays.asList(new Integer[]{1}));
+		
+		assertThat(result.getItems().size()).isEqualTo(2);
+		assertThat(result.getItems()).isEqualTo(itemsAfter);
+	}
 }
