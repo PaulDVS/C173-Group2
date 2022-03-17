@@ -137,26 +137,10 @@ class ItemServiceImpTests {
 		
 		float expectedPrice = 9;
 		when(itemDao.getPriceById(2001)).thenReturn(expectedPrice);
-		
 		assertThat(itemService.getPriceById(2001)).isEqualTo(expectedPrice);
 		
 	}
 
-	@Test
-	final void testSetStockQuantityById() {
-		
-		//ItemType itemType2 = new ItemType("CD", 10);
-		//StockItem expectedItem = new StockItem(2001,5);
-		
-		
-		ItemService spy = Mockito.spy(itemService);
-		
-		// spy.setStockQuantityById(expectedItem);
-		
-		//assertEquals(Integer.MIN_VALUE, spy.setStockQuantityById(expectedItem));
-		
-		//assertThat(itemService.setStockQuantityById(expectedItem),expectedQuantity);
-		//assertThat(itemService.setStockQuantityById(expectedItem)).isEqualTo(expectedQuantity);
-	}
+	
 
 }

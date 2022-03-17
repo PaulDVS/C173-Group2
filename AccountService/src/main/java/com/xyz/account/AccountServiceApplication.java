@@ -6,8 +6,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-
-import com.xyz.entities.User;
 import com.xyz.persistence.UserDao;
 
 @SpringBootApplication(scanBasePackages ="com.xyz")

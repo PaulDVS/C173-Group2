@@ -1,32 +1,22 @@
 package com.xyz.controllers;
-
-
 import javax.servlet.http.HttpSession;
-
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.xyz.entities.ItemTypes;
 import com.xyz.entities.Login;
 import com.xyz.entities.User;
-import com.xyz.exception.UserCreationError;
 import com.xyz.service.AccountService;
-import com.xyz.service.StockTypeService;
+
 
 @Controller
 public class AccountController {
 	
 	@Autowired
 	private AccountService accountService;
-	
-	@Autowired
-	private StockTypeService stockTypeServiceImp;
 	
 	@RequestMapping(value="/Account/Register", method=RequestMethod.GET)
 	public String register(Model model) {
@@ -38,17 +28,17 @@ public class AccountController {
 		return "Register";
 	}
 	@RequestMapping(value="/Account/Register", method=RequestMethod.POST)
-	public String register(@ModelAttribute("user") User user) {
+	public String register(@Valid User user,BindingResult bindingResult) {
 		
 		
-			try {
-				accountService.registerCheck(user);
-				return "redirect:Login";
-			} catch(Exception e) {
-				e.getStackTrace();
-			}
-		
-			return "redirect:Error";
+		if (bindingResult.hasErrors()) {
+			
+			return "Register";
+		}else {
+			
+			accountService.registerCheck(user);
+			return "redirect:Login";
+		}
 	}
 	
 	@RequestMapping(value="/Account/Login", method=RequestMethod.GET)
@@ -66,22 +56,36 @@ public class AccountController {
 	//On fail go back to Login page with an appropriate message
 	//On success go to Store Selection page and load user into session
 	@RequestMapping(value = "/Account/Login", method=RequestMethod.POST)
-	public String login(@ModelAttribute("login") Login login, HttpSession session) {
+	public String login(@Valid Login login,BindingResult bindingResult,HttpSession session) {
 		
-		ModelAndView modelAndView = new ModelAndView();
-		User user = accountService.loginCheck(login.getUserName(), login.getPassword());
-	
-		if(user!=null) {
+		session.removeAttribute("message");
+		if (bindingResult.hasErrors()) {
 			
-			session.setAttribute("currentUser", user);	
-		return "redirect:/StockItemsType/All";
-		
-		} else {
-			modelAndView.addObject("message", "Login Failed. Please try again.");
-			modelAndView.setViewName("Login");
-			return "redirect:Login";
+			return "Login";
+		}else {
+			
+			User user = accountService.loginCheck(login.getUserName(), login.getPassword());
+			
+			if(user!=null) {
+				
+				session.setAttribute("currentUser", user);	
+				session.removeAttribute("message");
+				
+			return "redirect:/StockItemsType/All";
+			
+			} else {
+				String message = "Failed to login. Either user name is wrong or the password.";
+				session.setAttribute("message", message);
+				
+				return "Login";
+			}
 		}
+		
+		
+	
+		
 
 		
 	}
+	
 }
