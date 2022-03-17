@@ -11,8 +11,8 @@ import lombok.Setter;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class StockItem {
+	
 	@Getter
 	@Setter
 	@Id

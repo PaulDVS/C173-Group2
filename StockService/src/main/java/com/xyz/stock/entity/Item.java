@@ -12,8 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @EqualsAndHashCode
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class Item {

@@ -19,20 +19,20 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "com.xyz.persistence")
 @EntityScan(basePackages = "com.xyz.entity")
 @SpringBootApplication(scanBasePackages = "com.xyz")
-public class OrderServiceApplication /*implements CommandLineRunner*/ {
+public class OrderServiceApplication implements CommandLineRunner {
 
-//	 @Autowired
-//	 OrderRecordDao orderRecordDao;
+	 @Autowired
+	 OrderRecordDao orderRecordDao;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(OrderServiceApplication.class, args);
 	}
 
 	 // test data
-//	 @Override
-//	 public void run(String... args) throws Exception {
-//		
-//
+	 @Override
+	 public void run(String... args) throws Exception {
+		
+
 //	 	BasketItem bas1 = new BasketItem(1, 1, 1);
 //	 	BasketItem bas2 = new BasketItem(2, 2, 2);
 //	 	BasketItem bas3 = new BasketItem(3, 2, 4);
@@ -42,6 +42,6 @@ public class OrderServiceApplication /*implements CommandLineRunner*/ {
 //
 //	 	orderRecordDao.save(ord1);
 //	 	orderRecordDao.save(ord2);
-//	 }
+	 }
 
 }

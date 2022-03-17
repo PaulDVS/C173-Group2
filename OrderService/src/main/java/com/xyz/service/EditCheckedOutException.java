@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class EditCheckedOutException extends Exception {
+	
 	@Getter
 	@Setter
 	private String message;

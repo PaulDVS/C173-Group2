@@ -55,90 +55,25 @@
 			</dd>
 		</dl>
 		<form action="/StockItems/Add" method="post">
-		<input type="hidden" th:value="${item.id}" name="currentItemId">
-		<label for="currentItemQuantity" name="currentItemQuantity">Quantity: <input
-			class="form-control mt-3 mb-3 ml-3 mr-3"
-			style="width: auto; display: inline-block; margin-right: 10px; margin-left: 10px;"
-			type="number" id="quantity" name="currentItemQuantity" value="1" min="1"
-			th:attr="max=${item.quantity}" size=1
-			oninput="this.size = this.value.length" autocomplete="off"></label> 
-			
-			
-			<input type="submit" value = "Place In Cart" class="btn btn-primary">
-			
-		</form>	
+			<input type="hidden" th:value="${item.id}" name="currentItemId">
+			<label for="currentItemQuantity" name="currentItemQuantity">Quantity:
+				<input class="form-control mt-3 mb-3 ml-3 mr-3"
+				style="width: auto; display: inline-block; margin-right: 10px; margin-left: 10px;"
+				type="number" id="quantity" name="currentItemQuantity" value="1"
+				min="1" th:attr="max=${item.quantity}" size=1
+				oninput="this.size = this.value.length" autocomplete="off">
+			</label> <input type="submit" value="Place In Cart" class="btn btn-primary">
+
+		</form>
+		<a
+			th:href="@{/StockItems/ByType/?ItemType={ItemType}(ItemType=${item.type.type})}"
+			class="btn btn-outline-secondary" style="float: right;">Back to <text
+				th:text=${item.type.type}> shop </a>
 	</div>
 
 
-	<!-- 
-<h2 style="">Viewing Item:
-
-</h2>
-
-<p>
-	Price: 
-	<strong th:text="${item.price}"/>
-</p>
-
-<p>
-	Type: 
-	<strong th:text="${item.type.type}"/>
-</p>
-
-<p>
-	Tax Rate: 
-	<strong th:text="${item.type.taxRate}"/><strong>%</strong>
-</p>
-
-<p>
-	Quantity Available: 
-	<strong th:text="${item.quantity}"/>
-</p>
-
-<span>
-	Add to cart:
-	<br>
-	
-	<input type="number" id="quantity" name="quantity" value="1" min="1" 
-	th:attr="max=${item.quantity}" size=1 oninput="this.size = this.value.length" autocomplete="off">
-	<button>Place in Cart</button>
-	
-	<form action="./AddItem" method="post">
-		<input type="number" id="quantity" name="inputQuantity" value="1" min="1" 
-		th:attr="max=${item.quantity}" size=1 oninput="this.size = this.value.length" autocomplete="off">
-		<input type = "hidden" th:value="${item.itemId}" name="itemId">
-		<button type ="submit">Add</button>
-	</form>
-	
-</span>
-
- -->
-
-	<br>
-	<br>
 
 
-	<!--
-<table>
-	<tr>
-		<th>Item Name</th>
-		<th>Item Type</th>
-		<th>Item Price</th>
-		<th>Item Tax</th>
-		<th>Item Quantity</th>
-	</tr>
-	<tr th:object ="${item}">
-		<td th:text ="${item.name}"></td>
-		<td th:text ="${item.type.type}"></td>
-		<td th:text ="${item.price}"></td>
-		<td th:text ="${item.price}"></td>
-		<td th:text ="${item.quantity}"></td>
-	</tr>
-</table>
--->
 
-	<a th:href="@{/StockItems/ByType/?ItemType={ItemType}(ItemType=${item.type.type})}">Back to <text th:text=${item.type.type} />
-		shop
-	</a>
 </body>
 </html>

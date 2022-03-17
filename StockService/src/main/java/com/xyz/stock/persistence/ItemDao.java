@@ -15,4 +15,11 @@ public interface ItemDao extends JpaRepository<Item, Integer> {
 
 	@Query("from Item where type = :itemType")
 	public List<Item> findItemsByItemType(@Param("itemType") ItemType itemType);
+	
+	@Query("SELECT price from Item where id = :itemId")
+	public float getPriceById(@Param("itemId") int itemId);
+	
+	@Query("SELECT quantity from Item where id = :itemId")
+	public int getStockQuantityById(@Param ("itemId") int itemId);
+	
 }

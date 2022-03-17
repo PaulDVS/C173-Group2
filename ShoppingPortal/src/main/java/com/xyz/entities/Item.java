@@ -9,7 +9,6 @@ import lombok.Setter;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Item {
 	
 	@Getter
@@ -20,8 +19,6 @@ public class Item {
 	private String name;
 	@Getter
 	@Setter
-//	@ManyToOne
-//	@JoinColumn(name="type")
 	private ItemType type;
 	@Getter
 	@Setter

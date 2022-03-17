@@ -35,62 +35,9 @@ public class ShopController {
 	
 	//Homepage, takes the user to the Login/Register webpage.
 	@RequestMapping("/")
-	public ModelAndView getMainPageController() {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("message", "Hello and welcome to our site.");
-		modelAndView.setViewName("Login");
-		return modelAndView;
-	}
-	
-	
-	
-	//Attempt to register a new user using input details
-		//If the code doesn't throw an exception go to Store Selection page and load user into session
-		//If an error is thrown go back to Login page and display the error message.
-	@RequestMapping("/Register")
-	public ModelAndView createAccount(@ModelAttribute("userEmail") String userEmail, @ModelAttribute("userPhone") String userPhone, @ModelAttribute("userAdd") String userAdd, @ModelAttribute("userName") String userName, @ModelAttribute("password") String password, HttpSession session) {
-		ModelAndView modelAndView = new ModelAndView();
-		User newUser = new User(userEmail, userPhone, userAdd, userName, password);
-		
-		try {
-			User checkedUser = accountService.registerCheck(newUser);
-			modelAndView.setViewName("StoreSelection");
-			session.setAttribute("currentUser", checkedUser);	
-			
-		}  catch (UserCreationError e) {
-			modelAndView.addObject("message", e.getMessage());
-			modelAndView.setViewName("Login");
-		} catch (Exception e) {
-			modelAndView.addObject("message", e.getMessage());
-			modelAndView.setViewName("Login");
-		}
+	public String getMainPageController() {
 
-		
-		return modelAndView;
-	}
-	
-	@RequestMapping(value="/Register", method=RequestMethod.POST)
-	public ModelAndView createAccount(@ModelAttribute("userEmail") String userEmail, @ModelAttribute("userPhone") String userPhone, @ModelAttribute("userAdd") String userAdd, @ModelAttribute("userName") String userName, @ModelAttribute("password") String password, HttpSession session, HttpServletResponse response) {
-		ModelAndView modelAndView = new ModelAndView();
-		User newUser = new User(userEmail, userPhone, userAdd, userName, password);
-		
-		try {
-			User checkedUser = accountService.registerCheck(newUser);
-			modelAndView.setViewName("StoreSelection");
-			session.setAttribute("currentUser", checkedUser);	
-			
-			response.sendRedirect("/");
-			
-		}  catch (UserCreationError e) {
-			modelAndView.addObject("message", e.getMessage());
-			modelAndView.setViewName("Login");
-		} catch (Exception e) {
-			modelAndView.addObject("message", e.getMessage());
-			modelAndView.setViewName("Login");
-		}
-
-		
-		return modelAndView;
+		return "redirect:/Account/Login";
 	}
 	
 	@RequestMapping("/ViewShop")
