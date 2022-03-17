@@ -17,7 +17,7 @@ Mohsen:
   OrderService: helped with debuging the Add OrderRecords and Add basketItems methods.
 
 Colman:
-  OrderService: POJO classes, RestAPI, Services, Application.Properties setting, design and implemention.
+  OrderService: POJO classes, RestAPI, Services, Application.Properties setting, design and implemention, Junit testing.
 
 Jozef:
   Item Service: Contributed a method.
