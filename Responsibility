@@ -6,6 +6,7 @@ Paul:
                   Cart page, viewcart(), removeItem(),
                   Checkout page, Checkout().
   StockService: Sample Items and ItemTypes
+  Testing for above
 
 Suraiya: 
   EmailService
