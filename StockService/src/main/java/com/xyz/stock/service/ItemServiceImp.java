@@ -34,9 +34,9 @@ public class ItemServiceImp implements ItemService {
 
 	}
 	public Item getItemById(int itemId) {
-		Item optResult = itemDao.getById(itemId);
-		if(optResult!=null) {
-			return optResult;
+		var optResult = itemDao.findById(itemId);
+		if(!optResult.isEmpty()) {
+			return optResult.get();
 		}
 		
 		return new Item(itemId,"No Name", null, 0.0f, 0) ;

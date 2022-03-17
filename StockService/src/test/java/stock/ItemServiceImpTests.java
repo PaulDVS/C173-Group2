@@ -145,8 +145,8 @@ class ItemServiceImpTests {
 	@Test
 	final void testSetStockQuantityById() {
 		
-		ItemType itemType2 = new ItemType("CD", 10);
-		StockItem expectedItem = new StockItem(2001,5);
+		//ItemType itemType2 = new ItemType("CD", 10);
+		//StockItem expectedItem = new StockItem(2001,5);
 		
 		
 		ItemService spy = Mockito.spy(itemService);

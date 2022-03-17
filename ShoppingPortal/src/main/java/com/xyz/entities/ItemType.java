@@ -13,7 +13,6 @@ public class ItemType {
 	
 	@Getter
 	@Setter
-//	@Id
 	private String type;
 	@Getter
 	@Setter

@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 	@Getter
 	@Setter

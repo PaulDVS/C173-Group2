@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import com.xyz.stock.entity.Item;
+import com.xyz.stock.entity.ItemType;
 import com.xyz.stock.persistence.ItemDao;
 import com.xyz.stock.persistence.ItemTypeDao;
 
@@ -28,7 +30,7 @@ public class StockServiceApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		/* 
+		/*   
 		ItemType itemType1 = new ItemType("Books", 0);
 		ItemType itemType2 = new ItemType("CD", 10);
 		ItemType itemType3 = new ItemType("Cosmetics", 12);
@@ -104,7 +106,7 @@ public class StockServiceApplication implements CommandLineRunner {
 		itemDoa.save(item28);
 		itemDoa.save(item29);
 		itemDoa.save(item30);
-		 */	
+		*/	
 	}
 
 }
