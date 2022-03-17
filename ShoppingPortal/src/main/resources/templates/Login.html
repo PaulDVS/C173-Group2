@@ -17,15 +17,26 @@
 		<br> <br>
 		<div class="d-flex justify-content-center">
 			<div class="col-sm-4">
-				<form action="./Login" method="post">
+				<form action="#" th:action="@{../Login}" method="post" th:object="${login}">
+					
+					
 					<label>Enter Username</label>
 					<div class="input-group mb-3">
-						<input type="text" th:field="${login.userName}" class="form-control">
+						<input type="text" th:field="*{userName}" class="form-control">
+					<span
+						th:if="${#fields.hasErrors('userName')}"
+						th:errors="*{userName}">Email</span>
 					</div>
 					<label>Enter Password</label>
 					<div class="input-group mb-3">
-						<input type="password" th:field="${login.password}" class="form-control">
+						<input type="password" th:field="*{password}" class="form-control">
+						<span
+						th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}">Email</span>
 					</div>
+					
+					
+					
 					<input type="submit" value="Login" class="btn btn-primary"
 						style="float: right"> 
 						<a href="/Account/Register" class=" btn btn-outline-primary"style="float: right; margin-right: 20px;">Register</a>

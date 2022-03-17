@@ -29,8 +29,9 @@ import com.xyz.service.StockTypeService;
 
 @Controller
 public class TempControllerPaul {
+	
 	@Autowired
-	OrderService orderService;
+	private OrderService orderService;
 
 	@Autowired
 	private StockTypeService stockTypeServiceImp;

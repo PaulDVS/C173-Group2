@@ -26,23 +26,23 @@ public class AccountServiceImpl implements AccountService {
 		//If data is valid, Register user and return new user object
 		//Final Check to make sure the user object was returned successfully
 	@Override
-	public User registerCheck(User user) throws UserCreationError {
+	public User registerCheck(User user) {
 		User checkUser = null;
 		
 		if(user.getCustomerEmail().equals("") || user.getCustomerPhone().equals("") ||  user.getCustomerAddress().equals("") || (user.getCustomerName().equals("")) || user.getCustomerPassword().equals("")){
-			throw new UserCreationError("Fields may not be blank");
+			//throw new UserCreationError("Fields may not be blank");
 			
 		} else {
 			String message = restTemplate.getForObject("http://localhost:8083/checkUser/" + user.getCustomerEmail() + "/" + user.getCustomerName(), String.class);
 			if(message != null) {
-				throw new UserCreationError(message);
+			//	throw new UserCreationError(message);
 			} else {
 				checkUser = restTemplate.postForObject("http://localhost:8083/register", user, User.class);
 			}
 		}
 		
 		if(checkUser == null) {
-			throw new UserCreationError("Error Registration failed");
+			//throw new UserCreationError("Error Registration failed");
 		}
 		return checkUser;
 	}
