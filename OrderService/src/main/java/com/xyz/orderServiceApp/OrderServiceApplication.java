@@ -1,13 +1,5 @@
 package com.xyz.orderServiceApp;
-
-
-import java.util.Arrays;
-
-import com.xyz.entity.BasketItem;
-import com.xyz.entity.OrderRecord;
-import com.xyz.persistence.BasketItemDao;
 import com.xyz.persistence.OrderRecordDao;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

@@ -1,6 +1,7 @@
 package com.xyz.entities;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +14,11 @@ public class Login {
 	
 	@Getter
 	@Setter
-	@NotBlank(message = "User Name is mandatory")
+	@NotEmpty(message = "User Name is mandatory")
 	private String userName;
 	@Getter
 	@Setter
-	@NotBlank(message = "Password is mandatory")
+	@NotEmpty(message = "Password is mandatory")
 	private String password;
 	@Getter
 	@Setter
