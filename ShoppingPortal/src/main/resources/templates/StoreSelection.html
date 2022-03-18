@@ -21,6 +21,7 @@
 		<h2>Store Selection</h2>
 		<br>
 		<br>
+		<h2 th:text = "'Welcome ' +${session.currentUser.customerName} + '!'"></h2>
 		<div class="row d-flex justify-content-center">
 			<div class="col-lg-4 col-md-4 col-sm-6" th:each="type : ${types}">
 				

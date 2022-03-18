@@ -18,7 +18,7 @@
 		<h1>XYZ Retail Shopping Website</h1>
 		<br>
 		<br>
-		<h2>My Cart</h2>
+		<h2 th:text = "'' +${session.currentUser.customerName} + ': Current Cart!'"></h2>
 		<h3>Cart Contents</h3>
 
 		<table class="table table-striped table-bordered border-primary">
@@ -38,7 +38,7 @@
 					<td th:text="${basketItemFull.basketItemTax}"></td>
 					<td th:text="${basketItemFull.basketItemFinalPrice}"></td>
 					<td>
-						<form action="./RemoveItem" method="post">
+						<form action="/RemoveItem" method="post">
 							<input type="hidden" th:value="${basketItemFull.basketItemId}"
 								name="basketItemId">
 							<button type="submit">Remove</button>
